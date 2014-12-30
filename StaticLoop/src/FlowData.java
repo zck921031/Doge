@@ -359,18 +359,18 @@ public final class FlowData
 				}
 				
 				///+ chuizhi fangxiang dou zhixing
-				if(  tmp_trafficlight[id][2]==1 &&
-				     (     (leftid>=1  && tmp_trafficlight[leftid][2] == 1 ) 
-				       ||  (rightid>=1 && tmp_trafficlight[rightid][2] == 1  )
-					 )  )
-				{
-					ret+=""+id+RoadString(id)+" VerticalConflictWithStraight-" +RoadString(leftid)+"|"+RoadString(rightid)+" ;";
-				}
-				///+ chuizhi youce buneng zuozhuan
-				if( tmp_trafficlight[id][2]==1 && rightid>=1 && tmp_trafficlight[rightid][0] == 1)
-				{
-					ret+=RoadString(id)+" ConflictRightTurnLeft-"+RoadString(rightid)+" ;";
-				}
+//				if(  tmp_trafficlight[id][2]==1 &&
+//				     (     (leftid>=1  && tmp_trafficlight[leftid][2] == 1 ) 
+//				       ||  (rightid>=1 && tmp_trafficlight[rightid][2] == 1  )
+//					 )  )
+//				{
+//					ret+=""+id+RoadString(id)+" VerticalConflictWithStraight-" +RoadString(leftid)+"|"+RoadString(rightid)+" ;";
+//				}
+//				///+ chuizhi youce buneng zuozhuan
+//				if( tmp_trafficlight[id][2]==1 && rightid>=1 && tmp_trafficlight[rightid][0] == 1)
+//				{
+//					ret+=RoadString(id)+" ConflictRightTurnLeft-"+RoadString(rightid)+" ;";
+//				}
 				
 				///updata history traffic lights and 
 				for(int j=0;j<3;j++) history_trafficlight[id][j][lastTimID] = tmp_trafficlight[id][j];
@@ -435,6 +435,37 @@ public final class FlowData
 		{
 			if(hasRoadID[id]==false) continue;
 			int tFlowStay = CalcuRoadStay(id,TimID);
+			
+			//更新，加上红绿灯违反交通规则的惩罚 a:直行垂直直行惩罚 b:直行垂直左转惩罚
+			double a=0,b=0;		
+			//交通违规的惩罚倍数
+			double zeta =0.5;			
+ 
+			int leftid = -1, rightid = -1;
+			if ( GotoID[id][0] >= 0 ) leftid = antiRoadID[ GotoID[id][0] ];
+			if ( GotoID[id][1] >= 0 ) rightid = antiRoadID[ GotoID[id][1] ];
+
+			//垂直方向不能同时直行	
+			if (tmp_trafficlight[id][2]==1 &&
+					((leftid>=0 && tmp_trafficlight[leftid][2]==1) 
+					|| (rightid>=0 && tmp_trafficlight[rightid][2]==1)) )
+			{
+				a += zeta*roadFlow[id][TimID];				
+				if ( leftid>=0 ) {
+					a += zeta*roadFlow[leftid][TimID];
+				}
+				if ( rightid>=0 ) {
+					a += zeta*roadFlow[rightid][TimID];
+				}
+			}
+			//直行时垂直方向右侧不能左转
+			if ( tmp_trafficlight[id][2]==1 && rightid>=0 && tmp_trafficlight[rightid][0]==1 ) {
+				b += zeta*(roadFlow[rightid][TimID] + roadFlow[id][TimID]);
+			}
+
+			//违规扣分
+			tFlowStay += 0.5*a + b;
+			
 			road_penalty[id]   +=  tFlowStay;
 			penalty[TimID/120] +=  tFlowStay;
 			SumPenalty         +=  tFlowStay;
