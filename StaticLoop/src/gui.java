@@ -464,7 +464,7 @@ public class gui extends JFrame  {
 		            System.out.println(count_tick + " trafficlight result : "+ret);
 		            
 		            int tmpPenalty = flowdata.updataPenalty(count_tick);
-		            System.out.println(count_tick + " tPenalty : "+tmpPenalty + " ; All_Penalty : "+flowdata.SumPenalty);
+		            System.out.println(count_tick + " tPenalty : "+tmpPenalty + " ; All_Penalty : "+(int)flowdata.SumPenalty);
 		            
 		            count_tick++;
 		            
