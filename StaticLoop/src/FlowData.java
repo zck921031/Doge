@@ -381,10 +381,10 @@ public final class FlowData
 		return (leftStay + rightStay + straightStay);
 	}
 	
-	public int updataPenalty(int TimID)
+	public double updataPenalty(int TimID)
 	{
 		if(TimID>=1681||lastTimID==1680) {System.out.println("out of time range!");return 0;}
-		int tmpSum = 0;
+		double tmpSum = 0;
 		for(int id=0;id<roadNum;id++)
 		{
 			if(hasRoadID[id]==false) continue;
