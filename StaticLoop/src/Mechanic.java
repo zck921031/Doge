@@ -422,7 +422,7 @@ public class Mechanic {
 			+ "30,166,5;31,83,1;32,167,4;33,168,4;34,169,2;35,99,5;36,37,3;37,41,3;38,44,3;39,80,5;"
 			+ "40,84,2;41,88,2;42,92,3;43,147,2;44,150,3;";
 	static String ZCK_1 = "1,157,7;2,30,7;3,127,4;4,130,7;5,134,8;6,158,1;7,27,7;8,31,6;9,52,5;10,56,5;11,60,4;12,135,6;14,50,6;15,29,1;16,137,4;17,140,4;18,151,5;19,154,3;20,93,3;21,97,6;22,77,6;23,104,4;24,108,4;25,111,4;26,115,4;27,90,1;28,73,5;29,163,1;30,166,2;31,112,1;32,167,7;33,168,7;34,96,1;35,121,3;36,37,4;37,41,4;38,44,6;39,80,5;40,84,5;41,88,5;42,92,3;43,147,4;44,150,3;";
-	
+	static String ZCK_2 = "1,157,7;2,30,7;3,127,4;4,130,7;5,134,1;6,158,4;7,27,7;8,31,6;9,52,5;10,56,5;11,60,4;12,135,6;14,50,6;15,29,1;16,137,4;17,140,4;18,151,5;19,154,3;20,93,3;21,97,6;22,77,6;23,104,4;24,108,4;25,111,4;26,115,4;27,90,1;28,73,5;29,163,1;30,166,2;31,112,1;32,167,7;33,168,7;34,96,1;35,121,3;36,37,4;37,41,4;38,44,6;39,80,5;40,84,5;41,88,5;42,92,3;43,147,4;44,150,3;";
 	static void Windhunter_firstTimInit_Smarter()
 	{
 		initScoreRoad();
@@ -437,7 +437,7 @@ public class Mechanic {
 		//String[] strs = SmartStatic_LightRule2_Added_3vs2_Added_coinAdvance_Added_Tcrossing6_Added_ExitCross7.trim().split(";");
 		///String[] strs = SmartStatic_LightRule2_Added_3vs2_Added_coinAdvance_Added_Tcrossing6_Added_ExitCross7_8.trim().split(";");
 		//String[] strs = SmartStatic_LightRule3_from1vs1.trim().split(";");
-		String [] strs = ZCK_1.split(";");
+		String [] strs = ZCK_2.split(";");
 		
 		for(String tstr : strs)
 		{
@@ -556,7 +556,7 @@ public class Mechanic {
 			/*
 			 * zck's try
 			 */
-			//simpleFix(i);
+			simpleFix(i);
 			
 			flowdata.updataTrafficLightToHistory();
 			//if(i<=5)DebugPrint(flowdata.getTmpTrafficLight());
