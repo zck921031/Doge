@@ -311,20 +311,23 @@ public final class FlowData
 						ret+=RoadString(id)+" has exit Goto_"+i+" but haven't light; ";
 					}
 				}
+				if(false)
+				{
+					///+ chuizhi fangxiang dou zhixing
+					if(  tmp_trafficlight[id][2]==1 &&
+					     (     (leftid>=1  && tmp_trafficlight[leftid][2] == 1 ) 
+					       ||  (rightid>=1 && tmp_trafficlight[rightid][2] == 1  )
+						 )  )
+					{
+						ret+=""+id+RoadString(id)+" VerticalConflictWithStraight-" +RoadString(leftid)+"|"+RoadString(rightid)+" ;";
+					}
+					///+ chuizhi youce buneng zuozhuan
+					if( tmp_trafficlight[id][2]==1 && rightid>=1 && tmp_trafficlight[rightid][0] == 1)
+					{
+						ret+=RoadString(id)+" ConflictRightTurnLeft-"+RoadString(rightid)+" ;";
+					}
+				}
 				
-				///+ chuizhi fangxiang dou zhixing
-//				if(  tmp_trafficlight[id][2]==1 &&
-//				     (     (leftid>=1  && tmp_trafficlight[leftid][2] == 1 ) 
-//				       ||  (rightid>=1 && tmp_trafficlight[rightid][2] == 1  )
-//					 )  )
-//				{
-//					ret+=""+id+RoadString(id)+" VerticalConflictWithStraight-" +RoadString(leftid)+"|"+RoadString(rightid)+" ;";
-//				}
-//				///+ chuizhi youce buneng zuozhuan
-//				if( tmp_trafficlight[id][2]==1 && rightid>=1 && tmp_trafficlight[rightid][0] == 1)
-//				{
-//					ret+=RoadString(id)+" ConflictRightTurnLeft-"+RoadString(rightid)+" ;";
-//				}
 				
 				///updata history traffic lights and 
 				for(int j=0;j<3;j++) history_trafficlight[id][j][lastTimID] = tmp_trafficlight[id][j];
