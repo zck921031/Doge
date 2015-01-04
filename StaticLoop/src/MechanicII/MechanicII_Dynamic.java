@@ -101,11 +101,19 @@ public class MechanicII_Dynamic {
 		int Yu = 10;
 		for(int i=0;i<flowdata.roadNum;i++)
 		{
-			if(flowdata.hasRoadID[i])
+			if(flowdata.hasRoadID[i])//一级放行策略
 			{
 				if(flowdata.GotoID[i][2]!=-1 && flowdata.hasRoadID[flowdata.GotoID[i][2]]==false)
 				{
 					if(flowdata.tmp_trafficlight[i][2]==0 && flowdata.roadFlow[i][flowdata.lastTimID] >= Yu)
+					{
+						flowdata.tmp_trafficlight[i][2]=1;
+					}
+				}
+				if(ScoreRoad[i]==46)//二级放行策略
+				{
+					if(flowdata.tmp_trafficlight[i][2]==0 && flowdata.roadFlow[i][flowdata.lastTimID] >= 16 && 
+							flowdata.roadFlow[flowdata.GotoID[i][2]][flowdata.lastTimID] <=32)
 					{
 						flowdata.tmp_trafficlight[i][2]=1;
 					}
