@@ -72,7 +72,7 @@ public final class FlowData
 			File file = new File(FileName);
 	        BufferedReader reader = null;
 	        try {
-	            System.out.println("read file started !!");
+	            //System.out.println("read file started !!");
 	            reader = new BufferedReader(new FileReader(file));
 	            String context = null;
 	            int line = 0;
@@ -107,7 +107,7 @@ public final class FlowData
 	            }
 	        }
 		}
-		System.out.println("read file : finished!");
+		//System.out.println("read file : finished!");
 	}
 	public void initTrafficLogic()///define array and build logic of roads
 	{
@@ -451,6 +451,7 @@ public final class FlowData
 				}
 				else 
 				{
+					roadFlow[i][timID] = 0;
 					if(timID>0) roadFlowSum[i][timID] = roadFlowSum[i][timID-1];///exit road has a special rule!
 				}
 			}

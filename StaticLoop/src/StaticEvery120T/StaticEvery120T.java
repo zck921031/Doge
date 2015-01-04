@@ -100,7 +100,7 @@ public class StaticEvery120T {
 				{
 					/// 右行策略，如果是悲剧路口尽量不让右行去那里 --
 					//if(ScoreRoad[flowdata.GotoID[i][1]]>25) 
-					if( isExTRoad(flowdata.GotoID[i][1],flowdata.lastTimID) == false )
+					if( isExTRoad(flowdata.GotoID[i][1], timID) == false )
 					//if(flowdata.roadFlow[ flowdata.GotoID[i][1] ][timID] <= 32 )
 					{
 						flowdata.tmp_trafficlight[i][1] = 1;
@@ -108,9 +108,9 @@ public class StaticEvery120T {
 					else
 					{
 						flowdata.tmp_trafficlight[i][1] = 0;
-						int lastGreen = flowdata.lastTimID - 1;///bug ： this T should not be contained！！！
+						int lastGreen = timID - 1;///bug ： this T should not be contained！！！
 						while(lastGreen>=0 && flowdata.history_trafficlight[i][1][lastGreen]==0) lastGreen--;
-						if(flowdata.lastTimID - lastGreen >= 4) flowdata.tmp_trafficlight[i][1] = 1;
+						if(timID - lastGreen >= 4) flowdata.tmp_trafficlight[i][1] = 1;
 						///if(flowdata.roadFlow[ flowdata.GotoID[i][1] ][flowdata.lastTimID] < 6)  flowdata.tmp_trafficlight[i][1] = 1;
 					}
 				}
@@ -123,7 +123,7 @@ public class StaticEvery120T {
 					///这个路口有些特殊，因为是T字路口才能是6，所以这个路口只有一个入度路比较特别，三个入度边比较逗
 					///一个路口是左右都有，一个有左没右，一个有右没左，用这个特性区别各路
 					int mod = 4;//4T a cycle
-					int tt  = (flowdata.lastTimID - (flowdata.lastTimID/120)*120)%mod;
+					int tt  = (timID%120)%mod;
 					// straight light & left light design:
 					if(flowdata.GotoID[i][0]>0&&flowdata.GotoID[i][1]>0) //left & right
 					{
@@ -140,7 +140,7 @@ public class StaticEvery120T {
 						//  left light 
 						flowdata.tmp_trafficlight[i][0] = 1;///always green
 						///if(ScoreRoad[flowdata.GotoID[i][0]]<=25 && tt!=0) 
-						if( isExTRoad( flowdata.GotoID[i][0] , flowdata.lastTimID) && tt!=0) 
+						if( isExTRoad( flowdata.GotoID[i][0] , timID) && tt!=0) 
 							flowdata.tmp_trafficlight[i][0] = 0;
 						
 					}
@@ -166,7 +166,7 @@ public class StaticEvery120T {
 					if(NULLroadArr==-1||NULLNum==2) DebugPrint("err : "+atID+" Not an exit or have more than 1 exit");					
 					///这个路口有些特殊，因为anti/goto1/goto2/goto3里必有一个是hasRoadID[]=false的路径
 					int mod = (lightT[atID]==7?5:4);//4T a cycle
-					int tt  = (flowdata.lastTimID - (flowdata.lastTimID/120)*120)%mod;
+					int tt  = (timID%120)%mod;
 					if(NULLroadArr==2) //straight to exit 
 					{
 						// straight light
@@ -214,7 +214,7 @@ public class StaticEvery120T {
 					{
 						int mod = lightT[atID]+1;
 						if(special3vs2) mod = 5;///special 3:2
-						int tt  = (flowdata.lastTimID - (flowdata.lastTimID/120)*120)%mod;
+						int tt  = (timID%120)%mod;
 						if((special3vs2==false&&tt<mod-1)||(special3vs2&&tt<3)) 
 							flowdata.tmp_trafficlight[i][2] = flowdata.history_trafficlight[i][2][0];
 						else 
@@ -239,8 +239,8 @@ public class StaticEvery120T {
 						///add some special rule, for T road!
 						//flowdata.tmp_trafficlight[i][2] = flowdata.tmp_trafficlight[i][2]^1;
 						flowdata.tmp_trafficlight[i][2] = flowdata.history_trafficlight[i][2][0];
-						if(flowdata.lastTimID%2==1) flowdata.tmp_trafficlight[i][2]^=1;
-						if(isExTRoad( flowdata.GotoID[i][2] , flowdata.lastTimID) && flowdata.lastTimID%4 >=2) 
+						if(timID%2==1) flowdata.tmp_trafficlight[i][2]^=1;
+						if(isExTRoad( flowdata.GotoID[i][2] , timID) && timID%4 >=2) 
 						{
 							///if(flowdata.roadFlow[ flowdata.GotoID[i][0] ][flowdata.lastTimID] >= 6) 
 								flowdata.tmp_trafficlight[i][2]=0;
@@ -254,7 +254,7 @@ public class StaticEvery120T {
 					{
 						int mod = lightT[atID]+1;
 						if(special3vs2) mod = 5;///special 3:2
-						int tt  = (flowdata.lastTimID - (flowdata.lastTimID/120)*120)%mod;
+						int tt  = (timID%120)%mod;
 						if((special3vs2==false&&tt<mod-1)||(special3vs2&&tt<3)) 
 							flowdata.tmp_trafficlight[i][0] = flowdata.history_trafficlight[i][0][0];
 						else 
@@ -276,7 +276,7 @@ public class StaticEvery120T {
 						flowdata.tmp_trafficlight[i][0] = flowdata.history_trafficlight[i][0][0];
 						if(flowdata.lastTimID%2==1) flowdata.tmp_trafficlight[i][0]^=1;
 						//if(ScoreRoad[flowdata.GotoID[i][0]]<=25 && flowdata.lastTimID%4 >=2 )
-						if(isExTRoad( flowdata.GotoID[i][0] , flowdata.lastTimID) && flowdata.lastTimID%4 >=2) 
+						if(isExTRoad( flowdata.GotoID[i][0] , timID) && timID%4 >=2) 
 						{
 							///if(flowdata.roadFlow[ flowdata.GotoID[i][0] ][flowdata.lastTimID] >= 6) 
 								flowdata.tmp_trafficlight[i][0]=0;
@@ -391,7 +391,7 @@ public class StaticEvery120T {
 		///按流量比确定直行红绿灯时间
 		if(timID%120==0)
 		{
-			Windhunter_firstTimInit_Smarter(timID/120);
+			Windhunter_firstTimInit_Smarter( timID/120 );
 			initTrafficLightFreely();
 		}
 		else
@@ -426,7 +426,7 @@ public class StaticEvery120T {
 	}
 	static void simpleFix(int timID)
 	{
-		if ( timID == 0 ) init_simpleFix();
+		if ( timID % 120 == 0 ) init_simpleFix();
 		
 		for (int i=leave_city_road_id.size()-1; i>=0; i--)
 		{		
@@ -441,33 +441,49 @@ public class StaticEvery120T {
 	static int FastRunning120T(int hour)
 	///快速循环120次并计算当前红路灯策略总得分
 	{
-		flowdata.lastTimID = -1;
+		flowdata.lastTimID = -1 + 120*hour;
 		flowdata.SumPenalty = 0;///初始化,不初始化起始也行~~，呵呵
 		
 		//神奇的是下面的不初始化居然计算会出错，不明白为啥？ ==》 问题已经找到，向右转绿灯策略有个越界
 		//for(int i=0;i<flowdata.roadNum;i++)for(int j=0;j<3;j++)for(int k=0;k<120;k++) flowdata.history_trafficlight[i][j][k] = 0;
 		//------------------------------------------------------
+		
 		double SumPenalty = 0;
-		for(int i=0 + 120*hour; i< 120 + 120*hour ;i++)
+
+		//flowdata.updata( 0 );
+
+//		//Windhunter_firstTimInit_Smarter(0);
+		//initTrafficLightFreely();
+//		//simpleFix(  0 );		
+//		FlowData flowdata = new FlowData();
+//		flowdata.initJudgeFromTxt("./data/flow0901.txt");
+
+		
+		for(int i=hour*120*0; i< 120 + hour*120;i++)
 		{
-			flowdata.updata(i);
+			flowdata.updata( i );
 			///注意不需要运行Windhunter_firstTimInit()，因为canAdvance里已经准备好了lightT，lightStartID
-			if(i==0) initTrafficLightFreely();
-			else changeTrafficLight(i);
+			if( i%120==0 ) {
+				initTrafficLightFreely();
+			}
+			else {
+				if (i>=120) changeTrafficLight( i );
+			}
 			
 			/*
 			 * zck's try
 			 */
-			simpleFix(i);
+			simpleFix(  i );
 			
 			flowdata.updataTrafficLightToHistory();
 			//if(i<=5)DebugPrint(flowdata.getTmpTrafficLight());
 			//if(i<=5) DebugPrint(""+flowdata.history_trafficlight[flowdata.roadID[4][37]][1][i]);
 				
-			double tmpPenalty = flowdata.updataPenalty(i);
-			SumPenalty += tmpPenalty;
+			double tmpPenalty = flowdata.updataPenalty( i );
+			if (i>=120) SumPenalty += tmpPenalty;
+			//if ( i==121 ) System.out.println(tmpPenalty);
 			///DebugPrint(""+i + " tPenalty : "+tmpPenalty + " ; All_Penalty : "+flowdata.SumPenalty);		
-		}
+		}		
 		///DebugPrint(":"+SumPenalty);		
 		return (int)SumPenalty;
 	}
@@ -721,7 +737,7 @@ public class StaticEvery120T {
 		if(learninglab)
 		{
 			debuglab = true;///for print 
-			for (int hour=0; hour<14; hour++){
+			for (int hour=1; hour<14; hour++){
 				windhunterLearning("./data/flow0901.txt", hour);
 			}
 			SaveRuleToDisk();
@@ -753,7 +769,7 @@ public class StaticEvery120T {
 		}			
 	}
 
-	static String rule[] = Constants.zck2.trim().split(";;");
+	static String rule[] = null;
 	static String rule_filename = "src/StaticEvery120T/StaticRule120.txt";
 	static void SaveRuleToDisk(){
 		//System.out.println( StaticEvery120T.class.getResource(rule_filename) );
@@ -762,7 +778,7 @@ public class StaticEvery120T {
 		{  
 			for ( String s:rule)
 			{
-				sb.append(s).append(";");
+				sb.append(s).append("[end]");
 			}			
 		}
         try {
@@ -797,7 +813,25 @@ public class StaticEvery120T {
 	 */
 	static{
 //		rule = new String [14];
-//		for (int i=0; i<14; i++) rule[i] = ";";
+//		for (int i=0; i<14; i++) rule[i] = new String( Constants.zck0 );
+		rule = Constants.zck2.split("\\[end\\]");
+		//rule[0] = Constants.zck2.split("\\[end\\]")[0];
+		
+//		System.out.println( rule.length );
+//		for (String s:rule){
+//			System.out.println(s);			
+//		}
+//		for (int i=0; i<14; i++){
+//			System.out.println( Constants.zck2.trim().split("\\[end\\]")[i].equals(
+//					Constants.zck1.trim().split("\\[end\\]")[i]
+//					) );
+////			System.out.println( Constants.zck1.trim().split("\\[end\\]")[i] );
+////			System.out.println( Constants.zck2.trim().split("\\[end\\]")[i] );
+//		}
+		
+		//rule[0] += "2b";
+		//System.out.println( rule.length );
+		
 	}
 }
 
