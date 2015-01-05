@@ -53,4 +53,27 @@ void analyse(){
     cout<<"mean error: "<<fixed<<setprecision(6)<<me<<endl;
     cout<<"mean square error: "<<fixed<<setprecision(6)<<mse<<endl;
 
+    double m1=0, m2=0;
+    for (int r=0; r<ROAD; r++){
+        me = mse = 0;
+        for (int tim=0; tim<TIM; tim++){
+            for (int day=0; day<DAY; day++){
+                me += fabs( mean[r][tim] - flow[r][tim][day] );
+                mse += ( mean[r][tim] - flow[r][tim][day] ) * ( mean[r][tim] - flow[r][tim][day] );
+            }
+            if ( (tim+1)%60 == 0 ){
+                me /= 60*DAY;
+                mse /= 60*DAY;
+                m1 = max(m1, me );
+                m2 = max(m2, mse);
+                me = mse = 0;
+            }
+        }
+//        cout<<"For Road "<<r<<":"<<endl;
+//        cout<<"mean error: "<<fixed<<setprecision(6)<<me<<endl;
+//        cout<<"mean square error: "<<fixed<<setprecision(6)<<mse<<endl;
+    }
+    cout<<"road max mean error: "<<fixed<<setprecision(6)<<m1<<endl;
+    cout<<"road max mean square error: "<<fixed<<setprecision(6)<<m2<<endl;
+
 }
