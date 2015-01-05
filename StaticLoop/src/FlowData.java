@@ -13,9 +13,55 @@ import java.util.Map;
 
 public final class FlowData
 {
-	private static String traffic_topo_str = Constants.traffic_topo_str.trim();
-	private static String row_id = Constants.row_id.trim();
-	private static String col_id = Constants.col_id.trim();
+	private static String traffic_topo_str = "tl44,tl42,tl43,#,tl19;tl44,tl43,tl19,tl42,#;"
+			+ "tl44,tl19,#,tl43,tl42;tl43,tl44,tl41,tl18,#;tl43,tl41,#,tl44,tl18;tl43,tl18,tl44,#,tl41;"
+			+ "tl42,tl26,tl41,#,tl44;tl42,tl41,tl44,tl26,#;tl42,tl44,#,tl41,tl26;tl41,tl42,tl25,tl43,tl40;"
+			+ "tl41,tl25,tl40,tl42,tl43;tl41,tl40,tl43,tl25,tl42;tl41,tl43,tl42,tl40,tl25;tl40,tl41,tl24,tl17,tl39;"
+			+ "tl40,tl24,tl39,tl41,tl17;tl40,tl39,tl17,tl24,tl41;tl40,tl17,tl41,tl39,tl24;tl39,tl40,tl23,tl16,#;"
+			+ "tl39,tl23,#,tl40,tl16;tl39,tl16,tl40,#,tl23;tl38,tl12,tl37,#,tl5;tl38,tl37,tl5,tl12,#;"
+			+ "tl38,tl5,#,tl37,tl12;tl37,tl38,tl11,tl4,tl36;tl37,tl11,tl36,tl38,tl4;tl37,tl36,tl4,tl11,tl38;"
+			+ "tl37,tl4,tl38,tl36,tl11;tl36,tl37,tl10,tl3,#;tl36,tl10,#,tl37,tl3;tl36,tl3,tl37,#,tl10;"
+			+ "tl35,tl52,tl58,tl28,tl34;tl35,tl58,tl34,tl52,tl28;tl35,tl34,tl28,tl58,tl52;tl35,tl28,tl52,tl34,tl58;"
+			+ "tl34,tl35,tl57,tl27,tl33;tl34,tl57,tl33,tl35,tl27;tl34,tl33,tl27,tl57,tl35;tl34,tl27,tl35,tl33,tl57;"
+			+ "tl33,tl34,tl56,tl26,tl32;tl33,tl56,tl32,tl34,tl26;tl33,tl32,tl26,tl56,tl34;tl33,tl26,tl34,tl32,tl56;"
+			+ "tl32,tl33,tl55,tl25,tl31;tl32,tl55,tl31,tl33,tl25;tl32,tl31,tl25,tl55,tl33;tl32,tl25,tl33,tl31,tl55;"
+			+ "tl31,tl32,#,tl24,tl30;tl31,tl30,tl24,#,tl32;tl31,tl24,tl32,tl30,#;tl30,tl31,tl54,tl23,tl29;tl30,tl54,tl29,tl31,tl23;"
+			+ "tl30,tl29,tl23,tl54,tl31;tl30,tl23,tl31,tl29,tl54;tl29,tl30,tl53,tl22,tl51;tl29,tl53,tl51,tl30,tl22;tl29,tl51,tl22,tl53,tl30;"
+			+ "tl29,tl22,tl30,tl51,tl53;tl28,tl35,tl27,#,tl21;tl28,tl27,tl21,tl35,#;tl28,tl21,#,tl27,tl35;tl27,tl28,tl34,tl20,tl26;"
+			+ "tl27,tl34,tl26,tl28,tl20;tl27,tl26,tl20,tl34,tl28;tl27,tl20,tl28,tl26,tl34;tl26,tl27,tl33,tl42,tl25;tl26,tl33,tl25,tl27,tl42;"
+			+ "tl26,tl25,tl42,tl33,tl27;tl26,tl42,tl27,tl25,tl33;tl25,tl26,tl32,tl41,tl24;tl25,tl32,tl24,tl26,tl41;tl25,tl24,tl41,tl32,tl26;"
+			+ "tl25,tl41,tl26,tl24,tl32;tl24,tl25,tl31,tl40,tl23;tl24,tl31,tl23,tl25,tl40;tl24,tl23,tl40,tl31,tl25;tl24,tl40,tl25,tl23,tl31;"
+			+ "tl23,tl24,tl30,tl39,tl22;tl23,tl30,tl22,tl24,tl39;tl23,tl22,tl39,tl30,tl24;tl23,tl39,tl24,tl22,tl30;tl22,tl23,tl29,tl14,#;tl22,tl29,#,tl23,tl14;"
+			+ "tl22,tl14,tl23,#,tl29;tl21,tl28,tl20,#,tl6;tl21,tl20,tl6,tl28,#;tl21,tl6,#,tl20,tl28;tl20,tl21,tl27,#,tl19;tl20,tl27,tl19,tl21,#;tl20,tl19,#,tl27,tl21;"
+			+ "tl19,tl20,tl44,tl12,tl18;tl19,tl44,tl18,tl20,tl12;tl19,tl18,tl12,tl44,tl20;tl19,tl12,tl20,tl18,tl44;tl18,tl19,tl43,tl11,tl17;tl18,tl43,tl17,tl19,tl11;"
+			+ "tl18,tl17,tl11,tl43,tl19;tl18,tl11,tl19,tl17,tl43;tl17,tl18,tl40,tl10,tl16;tl17,tl40,tl16,tl18,tl10;tl17,tl16,tl10,tl40,tl18;tl17,tl10,tl18,tl16,tl40;tl16,tl17,tl39,tl9,tl15;"
+			+ "tl16,tl39,tl15,tl17,tl9;tl16,tl15,tl9,tl39,tl17;tl16,tl9,tl17,tl15,tl39;tl15,tl16,#,tl8,tl14;tl15,tl14,tl8,#,tl16;tl15,tl8,tl16,tl14,#;tl14,tl15,tl22,tl7,#;tl14,tl22,#,tl15,tl7;"
+			+ "tl14,tl7,tl15,#,tl22;tl12,tl19,tl11,#,tl38;tl12,tl11,tl38,tl19,#;tl12,tl38,#,tl11,tl19;tl11,tl12,tl18,tl37,tl10;tl11,tl18,tl10,tl12,tl37;tl11,tl10,tl37,tl18,tl12;tl11,tl37,tl12,tl10,tl18;"
+			+ "tl10,tl11,tl17,tl36,tl9;tl10,tl17,tl9,tl11,tl36;tl10,tl9,tl36,tl17,tl11;tl10,tl36,tl11,tl9,tl17;tl9,tl10,tl16,tl2,tl8;tl9,tl16,tl8,tl10,tl2;tl9,tl8,tl2,tl16,tl10;tl9,tl2,tl10,tl8,tl16;"
+			+ "tl8,tl9,tl15,#,tl7;tl8,tl15,tl7,tl9,#;tl8,tl7,#,tl15,tl9;tl7,tl8,tl14,tl1,tl13;tl7,tl14,tl13,tl8,tl1;tl7,tl13,tl1,tl14,tl8;tl7,tl1,tl8,tl13,tl14;tl1,tl2,tl7,#,tl45;tl1,tl7,tl45,tl2,#;"
+			+ "tl1,tl45,#,tl7,tl2;tl2,tl47,tl3,tl1,tl9;tl2,tl3,tl9,tl47,tl1;tl2,tl9,tl1,tl3,tl47;tl2,tl1,tl47,tl9,tl3;tl3,tl4,tl36,#,tl2;tl3,tl36,tl2,tl4,#;tl3,tl2,#,tl36,tl4;tl4,tl48,tl5,tl3,tl37;tl4,tl5,tl37,tl48,tl3;tl4,tl37,tl3,tl5,tl48;"
+			+ "tl4,tl3,tl48,tl37,tl5;tl5,tl49,tl6,tl4,tl38;tl5,tl6,tl38,tl49,tl4;tl5,tl38,tl4,tl6,tl49;tl5,tl4,tl49,tl38,tl6;tl6,tl50,tl46,tl5,tl21;tl6,tl46,tl21,tl50,tl5;tl6,tl21,tl5,tl46,tl50;tl6,tl5,tl50,tl21,tl46;";
+	private static String row_id = 
+			"47,48,49,50;"
+			+ "45,1,2,3,4,5,6,46;"
+			+ "36,37,38;"
+			+ "13,7,8,9,10,11,12;"
+			+ "14,15,16,17,18,19,20,21;"
+			+ "43,44;"
+			+ "39,40,41,42;"
+			+ "22,23,24,25,26,27,28;"
+			+ "51,29,30,31,32,33,34,35,52;"
+			+ "53,54,55,56,57,58;";
+	private static String col_id = "45,13,51;"
+			+ "1,7,14,22,29,53;"
+			+ "8,15;"
+			+ "47,2,9,16,39,23,30,54;"
+			+ "3,36,10,17,40,24,31;"
+			+ "48,4,37,11,18,43,41,25,32,55;"
+			+ "49,5,38,12,19,44,42,26,33,56;"
+			+ "20,27,34,57;"
+			+ "50,6,21,28,35,58;"
+			+ "46,52;";
 	
 	public static double[] turn_rate = new double[]{0.1,0.1,0.8};///{L,R,S}
 	public static int[]  through_rate = new int[]{2,2,16};///It's True
@@ -27,9 +73,9 @@ public final class FlowData
 	public int GotoID[][];///(roadID,3){0:L,1:R,2:S}
 	public int FromID[][];///(roadID,3){0:L,1:R,2:S} GotoID[ FromID[roadID][0|1|2] ][0|1|2] = roadID;
 	public int antiRoadID[];///(roadID) roadID = (u,v); antiRoadID[roadID] = (v,u)
-	public double penalty[];///score of algorithm 120's T => one Penalty
-	public double road_penalty[];
-	public double SumPenalty;
+	public int penalty[];///score of algorithm 120's T => one Penalty
+	public int road_penalty[];
+	public int SumPenalty;
 		
 	public int roadID[][];
 	public int roadLinktl[][];///a direct road : from u=roadLinktl[id][0] to v=roadLinktl[id][1] ( if roadID[u][v] = id )
@@ -154,8 +200,8 @@ public final class FlowData
 		DataFromTable = new int[roadNum][1690]; 
 		history_trafficlight = new int[roadNum][3][1690];
 		tmp_trafficlight = new int[roadNum][3];
-		penalty = new double[1680/120+1];
-		road_penalty = new double[roadNum];
+		penalty = new int[1680/120+1];
+		road_penalty = new int[roadNum];
 		SumPenalty = 0;
 		
 		trueTurnRate = new double[roadNum][3];
@@ -311,23 +357,20 @@ public final class FlowData
 						ret+=RoadString(id)+" has exit Goto_"+i+" but haven't light; ";
 					}
 				}
-				if(false)
-				{
-					///+ chuizhi fangxiang dou zhixing
-					if(  tmp_trafficlight[id][2]==1 &&
-					     (     (leftid>=1  && tmp_trafficlight[leftid][2] == 1 ) 
-					       ||  (rightid>=1 && tmp_trafficlight[rightid][2] == 1  )
-						 )  )
-					{
-						ret+=""+id+RoadString(id)+" VerticalConflictWithStraight-" +RoadString(leftid)+"|"+RoadString(rightid)+" ;";
-					}
-					///+ chuizhi youce buneng zuozhuan
-					if( tmp_trafficlight[id][2]==1 && rightid>=1 && tmp_trafficlight[rightid][0] == 1)
-					{
-						ret+=RoadString(id)+" ConflictRightTurnLeft-"+RoadString(rightid)+" ;";
-					}
-				}
 				
+				///+ chuizhi fangxiang dou zhixing
+				if(  tmp_trafficlight[id][2]==1 &&
+				     (     (leftid>=1  && tmp_trafficlight[leftid][2] == 1 ) 
+				       ||  (rightid>=1 && tmp_trafficlight[rightid][2] == 1  )
+					 )  )
+				{
+					ret+=""+id+RoadString(id)+" VerticalConflictWithStraight-" +RoadString(leftid)+"|"+RoadString(rightid)+" ;";
+				}
+				///+ chuizhi youce buneng zuozhuan
+				if( tmp_trafficlight[id][2]==1 && rightid>=1 && tmp_trafficlight[rightid][0] == 1)
+				{
+					ret+=RoadString(id)+" ConflictRightTurnLeft-"+RoadString(rightid)+" ;";
+				}
 				
 				///updata history traffic lights and 
 				for(int j=0;j<3;j++) history_trafficlight[id][j][lastTimID] = tmp_trafficlight[id][j];
@@ -384,45 +427,14 @@ public final class FlowData
 		return (leftStay + rightStay + straightStay);
 	}
 	
-	public double updataPenalty(int TimID)
+	public int updataPenalty(int TimID)
 	{
 		if(TimID>=1681||lastTimID==1680) {System.out.println("out of time range!");return 0;}
-		double tmpSum = 0;
+		int tmpSum = 0;
 		for(int id=0;id<roadNum;id++)
 		{
 			if(hasRoadID[id]==false) continue;
-			double tFlowStay = CalcuRoadStay(id,TimID);
-			
-			//更新，加上红绿灯违反交通规则的惩罚 a:直行垂直直行惩罚 b:直行垂直左转惩罚
-			double a=0,b=0;		
-			//交通违规的惩罚倍数
-			double zeta =0.5;			
- 
-			int leftid = -1, rightid = -1;
-			if ( GotoID[id][0] >= 0 ) leftid = antiRoadID[ GotoID[id][0] ];
-			if ( GotoID[id][1] >= 0 ) rightid = antiRoadID[ GotoID[id][1] ];
-
-			//垂直方向不能同时直行	
-			if (tmp_trafficlight[id][2]==1 &&
-					((leftid>=0 && tmp_trafficlight[leftid][2]==1) 
-					|| (rightid>=0 && tmp_trafficlight[rightid][2]==1)) )
-			{
-				a += zeta*roadFlow[id][TimID];				
-				if ( leftid>=0 ) {
-					a += zeta*roadFlow[leftid][TimID];
-				}
-				if ( rightid>=0 ) {
-					a += zeta*roadFlow[rightid][TimID];
-				}
-			}
-			//直行时垂直方向右侧不能左转
-			if ( tmp_trafficlight[id][2]==1 && rightid>=0 && tmp_trafficlight[rightid][0]==1 ) {
-				b += zeta*(roadFlow[rightid][TimID] + roadFlow[id][TimID]);
-			}
-
-			//违规扣分
-			tFlowStay += 0.5*a + b;
-			
+			int tFlowStay = CalcuRoadStay(id,TimID);
 			road_penalty[id]   +=  tFlowStay;
 			penalty[TimID/120] +=  tFlowStay;
 			SumPenalty         +=  tFlowStay;
