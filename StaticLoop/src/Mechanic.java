@@ -43,22 +43,22 @@ public class Mechanic {
             String ret = flowdata.updataTrafficLights(AI_trafficLightTable);
             DebugPrint(""+count + ": trafficlight result : "+ret);
             
-            double tmpPenalty = flowdata.updataPenalty(count);
-            DebugPrint(""+count + " tPenalty : "+(int)tmpPenalty + " ; All_Penalty : "+flowdata.SumPenalty);			
+            int tmpPenalty = flowdata.updataPenalty(count);
+            DebugPrint(""+count + " tPenalty : "+tmpPenalty + " ; All_Penalty : "+flowdata.SumPenalty);			
 			
 			///wait for nxt step
             if(onestepLab){DebugPrint("press any key to continue:");String heheStr = br.readLine();}
 			count++;
 		}
-		DebugPrint("End! Penalty is : "+(int)flowdata.SumPenalty+
+		DebugPrint("End! Penalty is : "+flowdata.SumPenalty+
 				"   through_rate :"+flowdata.through_rate[0]+","+flowdata.through_rate[1]+","+flowdata.through_rate[2]);
 	}
 	
 	static String Mechanic_AI(int timID)
 	//根据返回当前timID返回红绿灯策略
 	{
-		return ZCK_XXX(timID);
-		//return WindhunterSB_EasyAI(timID);
+		//return ZCK_XXX(timID);
+		return WindhunterSB_EasyAI(timID);
 		//return ZCK_EasyAI(timID);
 	}
 	
@@ -106,11 +106,8 @@ public class Mechanic {
 	{
 		if(roadID <= 0 ) return false;
 		int Yu = 60;
-		if ( learninglab ){
-			if(ScoreRoad[roadID]<=25) return true;
-		}else{
-			if(ScoreRoad[roadID]<=25 || flowdata.roadFlow[roadID][TimID]>= Yu) return true;
-		}
+		//if(ScoreRoad[roadID]<=25) return true;
+		if(ScoreRoad[roadID]<=25 || flowdata.roadFlow[roadID][TimID]>= Yu) return true;
 		return false;
 	}
 	
@@ -421,8 +418,6 @@ public class Mechanic {
 			+ "20,72,1;21,20,1;22,77,1;23,104,4;24,108,4;25,111,4;26,115,3;27,119,3;28,123,5;29,105,5;"
 			+ "30,166,5;31,83,1;32,167,4;33,168,4;34,169,2;35,99,5;36,37,3;37,41,3;38,44,3;39,80,5;"
 			+ "40,84,2;41,88,2;42,92,3;43,147,2;44,150,3;";
-	static String ZCK_1 = "1,157,7;2,30,7;3,127,4;4,130,7;5,134,8;6,158,1;7,27,7;8,31,6;9,52,5;10,56,5;11,60,4;12,135,6;14,50,6;15,29,1;16,137,4;17,140,4;18,151,5;19,154,3;20,93,3;21,97,6;22,77,6;23,104,4;24,108,4;25,111,4;26,115,4;27,90,1;28,73,5;29,163,1;30,166,2;31,112,1;32,167,7;33,168,7;34,96,1;35,121,3;36,37,4;37,41,4;38,44,6;39,80,5;40,84,5;41,88,5;42,92,3;43,147,4;44,150,3;";
-	static String ZCK_2 = "1,157,7;2,30,7;3,127,4;4,130,7;5,134,1;6,158,4;7,27,7;8,31,6;9,52,5;10,56,5;11,60,4;12,135,6;14,50,6;15,29,1;16,137,4;17,140,4;18,151,5;19,154,3;20,93,3;21,97,6;22,77,6;23,104,4;24,108,4;25,111,4;26,115,4;27,90,1;28,73,5;29,163,1;30,166,2;31,112,1;32,167,7;33,168,7;34,96,1;35,121,3;36,37,4;37,41,4;38,44,6;39,80,5;40,84,5;41,88,5;42,92,3;43,147,4;44,150,3;";
 	static void Windhunter_firstTimInit_Smarter()
 	{
 		initScoreRoad();
@@ -434,10 +429,10 @@ public class Mechanic {
 		//String[] strs = SmartStatic_LightRule2_Added_3vs2.trim().split(";");
 		//String[] strs = SmartStatic_LightRule2_Added_3vs2_Added_coinAdvance.trim().split(";");
 		///String[] strs = SmartStatic_LightRule2_Added_3vs2_Added_coinAdvance_Added_Tcrossing6.trim().split(";");
-		//String[] strs = SmartStatic_LightRule2_Added_3vs2_Added_coinAdvance_Added_Tcrossing6_Added_ExitCross7.trim().split(";");
-		///String[] strs = SmartStatic_LightRule2_Added_3vs2_Added_coinAdvance_Added_Tcrossing6_Added_ExitCross7_8.trim().split(";");
+		///String[] strs = SmartStatic_LightRule2_Added_3vs2_Added_coinAdvance_Added_Tcrossing6_Added_ExitCross7.trim().split(";");
+		String[] strs = SmartStatic_LightRule2_Added_3vs2_Added_coinAdvance_Added_Tcrossing6_Added_ExitCross7_8.trim().split(";");
 		//String[] strs = SmartStatic_LightRule3_from1vs1.trim().split(";");
-		String [] strs = ZCK_2.split(";");
+		
 		
 		for(String tstr : strs)
 		{
@@ -545,43 +540,35 @@ public class Mechanic {
 		//神奇的是下面的不初始化居然计算会出错，不明白为啥？ ==》 问题已经找到，向右转绿灯策略有个越界
 		//for(int i=0;i<flowdata.roadNum;i++)for(int j=0;j<3;j++)for(int k=0;k<120;k++) flowdata.history_trafficlight[i][j][k] = 0;
 		//------------------------------------------------------
-		double SumPenalty = 0;
+		int SumPenalty = 0;
 		for(int i=0;i<1680;i++)
 		{
 			flowdata.updata(i);
 			///注意不需要运行Windhunter_firstTimInit()，因为canAdvance里已经准备好了lightT，lightStartID
 			if(i==0) initTrafficLightFreely();
 			else changeTrafficLight(i);
-			
-			/*
-			 * zck's try
-			 */
-			simpleFix(i);
-			
 			flowdata.updataTrafficLightToHistory();
 			//if(i<=5)DebugPrint(flowdata.getTmpTrafficLight());
 			//if(i<=5) DebugPrint(""+flowdata.history_trafficlight[flowdata.roadID[4][37]][1][i]);
 				
-			double tmpPenalty = flowdata.updataPenalty(i);
+			int tmpPenalty = flowdata.updataPenalty(i);
 			SumPenalty += tmpPenalty;
 			///DebugPrint(""+i + " tPenalty : "+tmpPenalty + " ; All_Penalty : "+flowdata.SumPenalty);		
 		}
 		///DebugPrint(":"+SumPenalty);		
-		return (int)SumPenalty;
+		return SumPenalty;
 	}
 	static int[] canAdvance()
 	//任务查找一个路口修改后全局得分最大，类似模拟退火，但是这个路口不能已经给修改超过UP_AdvanceTime次，如果已经达到局部最优，return null；
 	{
 		int LastPenalty = FastRunning120T();
-
-		DebugPrint("Penalty achieve: " + LastPenalty );
 		 ///FastRunning120T();FastRunning120T();FastRunning120T();
 		//DebugPrint("LastPenalty:"+LastPenalty+" : "+FastRunning120T()+" : "+flowdata.SumPenalty);
 		int BestAtID = 0,BestRoadID = 0,BeastT = 1,BestAdvanceValue = 0;///value最大提高分数，atID最优时所在路口，fromID标记东西or南北
 		int BestAtID2 = 0,BestRoadID2 = 0,BeastT2 = 1;
 		int BestNum = 0;
 		for(int tlID=1;tlID<flowdata.tlNum;tlID++)
-		{			
+		{
 			int roadA = lightStartID[tlID];
 			if(roadA<=0 || AdvanceTimes[tlID] >= UP_AdvanceTime)
 			///该路口没有红绿灯 或者 该路口北优化过UP_AdvanceRime次
@@ -631,7 +618,6 @@ public class Mechanic {
 					BeastT = nxtT;
 					BestNum = 1;
 				}
-				
 			}
 			int TroadNum = 0;
 			for(int ii=0;ii<4;ii++) if(flowdata.lightLinkRoad[tlID][ii]>0) TroadNum++;
@@ -683,13 +669,10 @@ public class Mechanic {
 					BeastT = 8;
 					BestNum = 1;
 				}
-
 			}
 			
 			lightStartID[tlID] = memStartID;
 			lightT[tlID] = memT;
-			
-
 		}
 		///添加提升规则，联合提升，即向量的两个路口同时change，注意同时change符合两个特点：1、他们的start——road是同一条；2、他们的lightT一样大；
 		/*测试发现其提升效率不高：还会降低运行速度
@@ -784,7 +767,6 @@ public class Mechanic {
 			}
 		}
 		DebugPrint("Learning End! and Advanced : " + fullAdvance);
-		
 		///OutPut Traffic Light Rule Table:
 		StringBuilder ret = new  StringBuilder();
 		for(int tlID = 1;tlID < flowdata.tlNum;tlID++)
@@ -806,7 +788,6 @@ public class Mechanic {
 			windhunterLearning("./data/flow0901.txt");
 			return;
 		}
-		//learninglab = true;
 		
 		///if debug?
 		//debuglab = true;
