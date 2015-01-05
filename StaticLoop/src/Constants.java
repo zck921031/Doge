@@ -1,3 +1,4 @@
+
 public class Constants {
 	public static String traffic_topo_str = "tl44,tl42,tl43,#,tl19;tl44,tl43,tl19,tl42,#;"
 			+ "tl44,tl19,#,tl43,tl42;tl43,tl44,tl41,tl18,#;tl43,tl41,#,tl44,tl18;tl43,tl18,tl44,#,tl41;"
@@ -49,7 +50,7 @@ public class Constants {
 			+ "50,6,21,28,35,58;"
 			+ "46,52;";
 	//public static String leavecity[] = {"tl1-tl45","tl7-tl13","tl30-tl54","tl32-tl55","tl33-tl56","tl34-tl57","tl5-tl49","tl4-tl48","tl2-tl47"};
-	public static String leavecity[] = {"tl38-tl5","tl34-tl35","tl28-tl35"};
+	public static String leavecity[] = {"tl38-tl5","tl34-tl35","tl28-tl35","tl21-tl6"};
 	public static String SmartStatic_LightRule2_Added_3vs2_Added_coinAdvance_Added_Tcrossing6 = "1,23,6;2,30,3;3,127,3;"
 			+ "4,130,4;5,134,4;6,162,1;7,27,4;8,31,6;9,52,5;10,56,5;11,60,4;12,135,6;14,50,6;15,29,4;16,137,4;"
 			+ "17,140,4;18,151,5;19,154,3;20,93,3;21,97,6;22,77,6;23,104,4;24,108,4;25,111,4;26,115,4;27,119,4;"
