@@ -5,8 +5,10 @@ const string filename[]={"flow0901.txt","flow0902.txt","flow0903.txt","flow0904.
 map<string, int> roadkey2roadid;
 const int ROAD = 155, TIM = 1680, DAY = 7;
 int flow[ROAD][TIM][DAY];
+vector< vector<double> > mean(ROAD, vector<double>(TIM,0) );
 char str_v[1024],str_u[1024];
 void analyse();
+void output();
 int main(){
     FILE *fin;
     for (int day=0; day<DAY; day++){
@@ -31,10 +33,25 @@ int main(){
         fclose(fin);
     }
     analyse();
+    output();
     return 0;
 }
+void output(){
+    FILE *fout = fopen("meanflow.txt","w");
+    for (auto s: roadkey2roadid){
+        string key = s.first;
+        int roadid = s.second;
+        key.replace( key.find("-"),1 ,"," );
+        cout<<key<<" "<<roadid<<endl;
+        fprintf( fout, "%s", key.c_str() );
+        for (int i=0; i<TIM; i++){
+            fprintf( fout, ",%d", (int)round(mean[roadid][i]) );
+        }
+        fprintf(fout, "\n");
+    }
+    fclose(fout);
+}
 void analyse(){
-    vector< vector<double> > mean(ROAD, vector<double>(TIM,0) );
     for (int r=0; r<ROAD; r++)
     for (int tim=0; tim<TIM; tim++)
     for (int day=0; day<DAY; day++){
