@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -129,6 +130,8 @@ public class MechanicII_Dynamic {
 
 	static String NewRuleBreakTrafficRule_lev2break = "0:1,148;2,183;3,140;4,60;5,66;6,18;7,122;8,141;9,148;10,148;11,64;12,134;14,71;15,68;16,206;17,194;18,101;19,196;20,0;21,140;22,71;23,75;24,146;25,204;26,207;27,200;28,134;29,134;30,123;31,120;32,78;33,1;34,179;35,198;36,144;37,64;38,135;39,205;40,161;41,177;42,136;43,68;44,125;@1:1,148;2,95;3,135;4,197;5,180;6,71;7,91;8,121;9,127;10,127;11,88;12,141;14,71;15,204;16,203;17,70;18,64;19,207;20,134;21,135;22,71;23,204;24,207;25,204;26,207;27,204;28,134;29,141;30,134;31,133;32,103;33,87;34,178;35,178;36,1;37,88;38,134;39,173;40,16;41,17;42,137;43,68;44,137;@2:1,148;2,95;3,135;4,197;5,188;6,204;7,114;8,134;9,127;10,121;11,88;12,134;14,71;15,184;16,206;17,107;18,107;19,199;20,134;21,135;22,71;23,204;24,68;25,69;26,71;27,71;28,134;29,134;30,134;31,41;32,172;33,149;34,142;35,199;36,1;37,88;38,98;39,205;40,2;41,2;42,133;43,68;44,133;@3:1,187;2,97;3,135;4,198;5,164;6,204;7,114;8,141;9,140;10,121;11,88;12,140;14,71;15,16;16,206;17,69;18,2;19,207;20,71;21,40;22,71;23,71;24,16;25,17;26,207;27,204;28,134;29,134;30,134;31,139;32,109;33,87;34,178;35,178;36,1;37,112;38,136;39,205;40,15;41,14;42,137;43,68;44,138;@4:1,148;2,95;3,135;4,197;5,180;6,71;7,91;8,121;9,127;10,121;11,187;12,140;14,71;15,2;16,202;17,76;18,174;19,72;20,71;21,140;22,71;23,71;24,98;25,70;26,68;27,71;28,141;29,134;30,135;31,133;32,33;33,29;34,178;35,178;36,13;37,187;38,140;39,205;40,101;41,98;42,137;43,72;44,138;@5:1,148;2,97;3,135;4,197;5,165;6,71;7,114;8,134;9,127;10,112;11,187;12,140;14,71;15,76;16,68;17,101;18,104;19,207;20,184;21,43;22,71;23,204;24,16;25,16;26,205;27,71;28,134;29,134;30,134;31,42;32,126;33,111;34,111;35,178;36,0;37,187;38,101;39,173;40,101;41,101;42,120;43,69;44,137;@6:1,148;2,97;3,40;4,65;5,54;6,71;7,91;8,121;9,127;10,104;11,88;12,140;14,71;15,16;16,16;17,72;18,174;19,79;20,71;21,140;22,71;23,71;24,98;25,69;26,68;27,71;28,134;29,141;30,134;31,135;32,103;33,111;34,103;35,178;36,1;37,88;38,98;39,205;40,101;41,98;42,137;43,68;44,138;@7:1,141;2,95;3,140;4,65;5,178;6,204;7,91;8,121;9,127;10,121;11,88;12,134;14,71;15,57;16,207;17,101;18,115;19,196;20,141;21,123;22,71;23,71;24,68;25,70;26,70;27,71;28,134;29,134;30,134;31,125;32,0;33,111;34,120;35,178;36,0;37,112;38,134;39,205;40,101;41,98;42,133;43,69;44,137;@8:1,148;2,97;3,135;4,197;5,188;6,204;7,114;8,121;9,127;10,121;11,88;12,140;14,71;15,16;16,202;17,205;18,76;19,64;20,100;21,123;22,71;23,71;24,99;25,98;26,207;27,204;28,134;29,134;30,134;31,135;32,103;33,87;34,178;35,178;36,15;37,112;38,101;39,205;40,101;41,98;42,137;43,68;44,41;@9:1,141;2,97;3,135;4,197;5,165;6,71;7,82;8,121;9,127;10,127;11,88;12,135;14,71;15,2;16,67;17,203;18,203;19,68;20,134;21,135;22,71;23,71;24,68;25,205;26,16;27,204;28,134;29,134;30,134;31,135;32,103;33,87;34,178;35,178;36,1;37,112;38,76;39,204;40,2;41,2;42,137;43,0;44,138;@10:1,148;2,97;3,123;4,197;5,164;6,204;7,91;8,134;9,127;10,122;11,88;12,134;14,71;15,68;16,202;17,205;18,76;19,13;20,31;21,123;22,71;23,71;24,98;25,99;26,207;27,204;28,134;29,134;30,134;31,125;32,103;33,87;34,178;35,178;36,7;37,203;38,134;39,204;40,203;41,15;42,133;43,68;44,8;@11:1,141;2,97;3,135;4,198;5,164;6,204;7,82;8,121;9,127;10,121;11,88;12,141;14,71;15,184;16,202;17,207;18,76;19,15;20,184;21,135;22,71;23,71;24,98;25,99;26,207;27,204;28,134;29,134;30,134;31,123;32,103;33,87;34,178;35,178;36,1;37,112;38,134;39,204;40,3;41,2;42,137;43,69;44,137;@12:1,148;2,97;3,123;4,197;5,165;6,71;7,91;8,121;9,127;10,121;11,187;12,134;14,71;15,16;16,177;17,101;18,107;19,196;20,141;21,135;22,71;23,204;24,207;25,205;26,207;27,204;28,134;29,141;30,134;31,133;32,111;33,97;34,178;35,178;36,80;37,187;38,123;39,173;40,68;41,98;42,133;43,69;44,137;@13:1,141;2,97;3,135;4,198;5,164;6,204;7,91;8,121;9,127;10,104;11,88;12,135;14,71;15,57;16,67;17,205;18,76;19,2;20,147;21,135;22,71;23,204;24,205;25,205;26,104;27,204;28,134;29,141;30,134;31,125;32,103;33,188;34,155;35,54;36,80;37,112;38,134;39,205;40,2;41,2;42,137;43,69;44,138;@";
 	
+	static String HeheRule =                          "0:1,148;2,183;3,140;4,60;5,66;6,18;7,122;8,141;9,148;10,148;11,64;12,134;14,71;15,68;16,206;17,194;18,101;19,196;20,0;21,140;22,71;23,75;24,146;25,204;26,207;27,200;28,134;29,134;30,123;31,120;32,78;33,1;34,179;35,198;36,144;37,64;38,135;39,205;40,161;41,177;42,136;43,68;44,125;@1:1,148;2,95;3,135;4,197;5,180;6,71;7,91;8,121;9,127;10,127;11,88;12,141;14,71;15,204;16,203;17,70;18,64;19,207;20,134;21,135;22,71;23,204;24,207;25,204;26,207;27,204;28,134;29,141;30,134;31,133;32,103;33,87;34,178;35,178;36,1;37,88;38,134;39,173;40,16;41,17;42,137;43,68;44,137;@2:1,148;2,95;3,135;4,197;5,188;6,204;7,114;8,134;9,127;10,121;11,88;12,134;14,71;15,184;16,206;17,107;18,107;19,199;20,134;21,135;22,71;23,204;24,68;25,69;26,71;27,71;28,134;29,134;30,134;31,41;32,172;33,149;34,142;35,199;36,1;37,88;38,98;39,205;40,2;41,2;42,133;43,68;44,133;@3:1,187;2,97;3,135;4,198;5,164;6,204;7,114;8,141;9,140;10,121;11,88;12,140;14,71;15,16;16,206;17,69;18,2;19,207;20,71;21,40;22,71;23,71;24,16;25,17;26,207;27,204;28,134;29,134;30,134;31,139;32,109;33,87;34,178;35,178;36,1;37,112;38,136;39,205;40,15;41,14;42,137;43,68;44,138;@4:1,148;2,95;3,135;4,197;5,180;6,71;7,91;8,121;9,127;10,121;11,187;12,140;14,71;15,2;16,202;17,76;18,174;19,72;20,71;21,140;22,71;23,71;24,98;25,70;26,68;27,71;28,141;29,134;30,135;31,133;32,33;33,29;34,178;35,178;36,13;37,187;38,140;39,205;40,101;41,98;42,137;43,72;44,138;@5:1,148;2,97;3,135;4,197;5,165;6,71;7,114;8,134;9,127;10,112;11,187;12,140;14,71;15,76;16,68;17,101;18,104;19,207;20,184;21,43;22,71;23,204;24,16;25,16;26,205;27,71;28,134;29,134;30,134;31,42;32,126;33,111;34,111;35,178;36,0;37,187;38,101;39,173;40,101;41,101;42,120;43,69;44,137;@6:1,148;2,97;3,40;4,65;5,54;6,71;7,91;8,121;9,127;10,104;11,88;12,140;14,71;15,16;16,16;17,72;18,174;19,79;20,71;21,140;22,71;23,71;24,98;25,69;26,68;27,71;28,134;29,141;30,134;31,135;32,103;33,111;34,103;35,178;36,1;37,88;38,98;39,205;40,101;41,98;42,137;43,68;44,138;@7:1,141;2,95;3,140;4,65;5,178;6,204;7,91;8,121;9,127;10,121;11,88;12,134;14,71;15,57;16,207;17,101;18,115;19,196;20,141;21,123;22,71;23,71;24,68;25,70;26,70;27,71;28,134;29,134;30,134;31,125;32,0;33,111;34,120;35,178;36,0;37,112;38,134;39,205;40,101;41,98;42,133;43,69;44,137;@8:1,148;2,97;3,135;4,197;5,188;6,204;7,114;8,121;9,127;10,121;11,88;12,140;14,71;15,16;16,202;17,205;18,76;19,64;20,100;21,123;22,71;23,71;24,99;25,98;26,207;27,204;28,134;29,134;30,134;31,135;32,103;33,87;34,178;35,178;36,15;37,112;38,101;39,205;40,101;41,98;42,137;43,68;44,41;@9:1,141;2,97;3,135;4,197;5,180;6,71;7,82;8,134;9,44;10,30;11,88;12,134;14,71;15,2;16,67;17,205;18,76;19,13;20,39;21,123;22,71;23,71;24,68;25,205;26,16;27,204;28,134;29,134;30,134;31,135;32,103;33,87;34,178;35,178;36,1;37,112;38,98;39,204;40,2;41,2;42,137;43,69;44,8;@10:1,148;2,97;3,123;4,197;5,164;6,204;7,91;8,134;9,127;10,122;11,88;12,134;14,71;15,68;16,202;17,205;18,76;19,13;20,31;21,123;22,71;23,71;24,98;25,99;26,207;27,204;28,134;29,134;30,134;31,125;32,103;33,87;34,178;35,178;36,7;37,203;38,134;39,204;40,203;41,15;42,133;43,68;44,8;@11:1,141;2,97;3,135;4,198;5,164;6,204;7,82;8,121;9,127;10,121;11,88;12,141;14,71;15,184;16,202;17,207;18,76;19,15;20,184;21,135;22,71;23,71;24,98;25,99;26,207;27,204;28,134;29,134;30,134;31,123;32,103;33,87;34,178;35,178;36,1;37,112;38,134;39,204;40,3;41,2;42,137;43,69;44,137;@12:1,148;2,97;3,123;4,197;5,165;6,71;7,91;8,121;9,127;10,121;11,187;12,134;14,71;15,16;16,177;17,101;18,107;19,196;20,141;21,135;22,71;23,204;24,207;25,205;26,207;27,204;28,134;29,141;30,134;31,133;32,111;33,97;34,178;35,178;36,80;37,187;38,123;39,173;40,68;41,98;42,133;43,69;44,137;@13:1,141;2,97;3,135;4,198;5,164;6,204;7,91;8,121;9,127;10,104;11,88;12,135;14,71;15,57;16,67;17,205;18,76;19,2;20,147;21,135;22,71;23,204;24,205;25,205;26,104;27,204;28,134;29,141;30,134;31,125;32,103;33,188;34,155;35,54;36,80;37,112;38,134;39,205;40,2;41,2;42,137;43,69;44,138;@";
+	
 	
 	static int lightModel_static[][] = null;///14个120T周期分开训练，每个周期用一组策略灯
 	static int lightRoadA_static[]   = null;//一个路口红绿灯起始roadA；实际上roadA是谁并不重要，重要的是roadA不能变
@@ -159,7 +162,8 @@ public class MechanicII_Dynamic {
 		
 		//String[] PeriodTable =  NewRuleFollowTrafficRule.trim().split("@");
 		//String[] PeriodTable =  NewRuleBreakTrafficRule.trim().split("@");
-		String[] PeriodTable =  NewRuleBreakTrafficRule_lev2break.trim().split("@");
+		//String[] PeriodTable =  NewRuleBreakTrafficRule_lev2break.trim().split("@");
+		String[] PeriodTable =  HeheRule.trim().split("@");
 		
 		
 		for(String PeriodStr : PeriodTable)
@@ -252,6 +256,74 @@ public class MechanicII_Dynamic {
 		return (int)SumPenalty;
 	}
 	
+	static int[] canAdvance_static_faster(int periodID)
+	{
+		int LastPenalty = FastRunning120T_static(periodID);
+		DebugPrint("last Penalty achieve: " + LastPenalty +"  periodID: "+periodID);
+		int[][] trafficlightBestModelIDandBestAdvanceValue = new int[flowdata.tlNum][2];//((X,0):bestModel,(X,1):bestAdvance)
+		int SortArray[] = new int[flowdata.tlNum];
+		for(int tlID=1;tlID<flowdata.tlNum;tlID++)
+		{	
+			if(flowdata.lightLinkRoad[tlID][0]<=0) continue;
+			int oldModelID = lightModel_static[tlID][periodID];
+			int tmpBeastModelID = 0 , tmpBestAdvanceValue = 0;
+			trafficlightBestModelIDandBestAdvanceValue[tlID][1] = 0;
+			for(int modelid = 0;modelid < lightmodel.ModelNum;modelid++)
+			{
+				if(modelid==oldModelID) continue;
+				lightModel_static[tlID][periodID] = modelid;
+				int tmpPenalty = FastRunning120T_static(periodID);
+				if(LastPenalty-tmpPenalty>tmpBestAdvanceValue)
+				{
+					tmpBestAdvanceValue = LastPenalty-tmpPenalty;
+					tmpBeastModelID = modelid;
+				}
+			}
+			lightModel_static[tlID][periodID] = oldModelID;
+			trafficlightBestModelIDandBestAdvanceValue[tlID][0] = tmpBeastModelID;
+			trafficlightBestModelIDandBestAdvanceValue[tlID][1] = tmpBestAdvanceValue;
+			if(tmpBestAdvanceValue>0) SortArray[tlID] = tmpBestAdvanceValue*100 + tlID;
+		}
+		
+		Arrays.sort(SortArray);
+		ArrayList <Integer> chooseChange = new ArrayList<Integer>();
+		for(int i = flowdata.tlNum - 1 ; i>=0;i--)
+		{
+			int tlID = (int)(SortArray[i]%100);
+			int advance = (int)(SortArray[i]%100);
+			
+			if(advance>0)
+			{
+				int modelid = lightModel_static[tlID][periodID];
+				int tmpPenalty = FastRunning120T_static(periodID);//改之前
+				lightModel_static[tlID][periodID] = trafficlightBestModelIDandBestAdvanceValue[tlID][0];
+				int newPenalty = FastRunning120T_static(periodID);//改后
+				if(tmpPenalty<=newPenalty)//不提升不修改
+				{
+					lightModel_static[tlID][periodID] = modelid ;//还原
+				}
+				else
+				{
+					chooseChange.add(tlID);
+					chooseChange.add(trafficlightBestModelIDandBestAdvanceValue[tlID][0]);
+				}
+			}
+		}
+		int sumAdvance = LastPenalty - FastRunning120T_static(periodID);
+		chooseChange.add(sumAdvance);
+		
+		if(sumAdvance>0)
+		{
+			int[] ret = new int[chooseChange.size()];
+			for(int i=0;i<ret.length;i++)
+			{
+				ret[i] = chooseChange.get(i).intValue();
+			}
+			return ret;
+		}
+		return null;
+	}
+	
 	static int[] canAdvance_static(int periodID)
 	{
 		int LastPenalty = FastRunning120T_static(periodID);
@@ -259,6 +331,7 @@ public class MechanicII_Dynamic {
 		int BestAtID = 0,BeastModelID = 0,BestAdvanceValue = 0;///value最大提高分数，atID最优时所在路口，fromID标记东西or南北
 		for(int tlID=1;tlID<flowdata.tlNum;tlID++)
 		{	
+			if(flowdata.lightLinkRoad[tlID][0]<=0) continue;
 			int oldModelID = lightModel_static[tlID][periodID];
 			for(int modelid = 0;modelid < lightmodel.ModelNum;modelid++)
 			{
@@ -281,7 +354,7 @@ public class MechanicII_Dynamic {
 		return null;
 	}
 	///学习静态策略，每120T一个策略,策略Str："periodID:tlID,modelID0;...;$"
-	static String windhunterLearningII_static(String[] filetxtset,int periodID)
+	static String windhunterLearningII_static(String[] filetxtset,int periodID,boolean usefaster)//添加是否选用faster方法更新训练
 	{
 		///unfinished ! should create a new model first!
 		flowdata = new FlowData();
@@ -298,20 +371,45 @@ public class MechanicII_Dynamic {
 		int fullAdvance = 0;
 		
 		int[] AdvanceInfo = null;//new int[]{1,1,1};
-		while( (AdvanceInfo = canAdvance_static(periodID)) != null )
+		if(usefaster==false)//一次更新一个traffic light
 		{
-			DebugPrint(""+RunningTim+" : BestTL:"+AdvanceInfo[0]+",BestModel:"+ AdvanceInfo[1]
-					+",startRoadA:"+flowdata.RoadString(lightRoadA_static[AdvanceInfo[0]]) +",advance:"+AdvanceInfo[2]+";");
-			DebugPrint("the Model is : "+lightmodel.getModelStr( AdvanceInfo[1]));
-			fullAdvance += AdvanceInfo[2];
-			lightModel_static[AdvanceInfo[0]][periodID] = AdvanceInfo[1];
-			if(RunningTim>=100) 
+			while( (AdvanceInfo = canAdvance_static(periodID)) != null )
 			{
-				DebugPrint("Out Of Max Tim:" + RunningTim);
-				break;
+				DebugPrint(""+RunningTim+" : BestTL:"+AdvanceInfo[0]+",BestModel:"+ AdvanceInfo[1]
+						+",startRoadA:"+flowdata.RoadString(lightRoadA_static[AdvanceInfo[0]]) +",advance:"+AdvanceInfo[2]+";");
+				DebugPrint("the Model is : "+lightmodel.getModelStr( AdvanceInfo[1]));
+				fullAdvance += AdvanceInfo[2];
+				lightModel_static[AdvanceInfo[0]][periodID] = AdvanceInfo[1];
+				if(RunningTim>=100) 
+				{
+					DebugPrint("Out Of Max Tim:" + RunningTim);
+					break;
+				}
+				RunningTim++;
 			}
-			RunningTim++;
 		}
+		else//一次更新多个traffic lights
+		{
+			while( (AdvanceInfo = canAdvance_static_faster(periodID)) != null )
+			{
+				int changeNum = AdvanceInfo.length/2;//([0,changeNum*2-1],changeInfo,[changeNum*2]=>sum advance)
+				for(int i=0;i<changeNum;i++){
+					DebugPrint(""+RunningTim+" : BestTL:"+AdvanceInfo[i*2+0]+",BestModel:"+ AdvanceInfo[i*2+1]
+							+",startRoadA:"+flowdata.RoadString(lightRoadA_static[AdvanceInfo[i*2+0]]) +";");
+					DebugPrint("--->this Model is : "+lightmodel.getModelStr( AdvanceInfo[i*2+1]));
+				}
+				DebugPrint("Advance : "+AdvanceInfo[changeNum*2]);
+				fullAdvance += AdvanceInfo[changeNum*2];
+				//注意这里不再修改，因为在canAdvance_static_faster里已经被修改完了
+				if(RunningTim>=100) 
+				{
+					DebugPrint("Out Of Max Tim:" + RunningTim);
+					break;
+				}
+				RunningTim++;
+			}
+		}
+		
 		DebugPrint("Learning End! and Advanced : " + fullAdvance);
 		
 		///OutPut Traffic Light Rule Table:
@@ -329,17 +427,17 @@ public class MechanicII_Dynamic {
 		
 		return ret.toString();
 	}
-	
+	 
 	
 	static void DoSomethingInit()
 	{
 		lightmodel = new MechanicII_Model();
 		lightmodel.BuildModels();
 	}
-	static void runTrainingModel(String PeriodIDStr,String OutPutFile)
+	static void runTrainingModel(String PeriodIDStr,String OutPutFile,String fasterLab)
 	{
 		try{
-			FileOutputStream outfile = new FileOutputStream("./"+OutPutFile+"_resultOf_"+PeriodIDStr+".txt");
+			FileOutputStream outfile = new FileOutputStream("./"+OutPutFile+"_"+fasterLab+"_resultOf_"+PeriodIDStr+".txt");
 			String alltxt = "./data/flow0901.txt;./data/flow0903.txt;./data/flow0905.txt;./data/flow0907.txt;";
 			//String alltxt = "./data/flow0901.txt;";
 			String[] txts = alltxt.trim().split(";");
@@ -347,7 +445,9 @@ public class MechanicII_Dynamic {
 			flowdata = new FlowData();
 			int periodID = flowdata.toInt(PeriodIDStr);
 			String lastStr = "";
-			lastStr += windhunterLearningII_static(txts,periodID);
+			if(fasterLab.equals("usefaster")==false) lastStr += windhunterLearningII_static(txts,periodID,false);
+			else  lastStr += windhunterLearningII_static(txts,periodID,true);
+			//lastStr += windhunterLearningII_static(txts,periodID,true);
 			//每次输出一次全集，因为训练实在太慢
 			DebugPrint("NewRule:");
 			DebugPrint(lastStr);
@@ -365,7 +465,7 @@ public class MechanicII_Dynamic {
 	{
 		
 		//if(true) {DoSomethingInit();return;}//生成lightmodel需要的东西
-		//if(true) {runTrainingModel(args[0],args[1]);return;}//在外部多次运行
+		//if(true) {if(args.length==2) runTrainingModel(args[0],args[1],"false");else runTrainingModel(args[0],args[1],args[2]);return;}//在外部多次运行
 		
 		///if Learning?
 		//learninglab = true;
@@ -378,7 +478,8 @@ public class MechanicII_Dynamic {
 			String lastStr = "";
 			for(int i=0;i<14;i++)
 			{
-				lastStr += windhunterLearningII_static(txts,i);
+				//lastStr += windhunterLearningII_static(txts,i,false);
+				lastStr += windhunterLearningII_static(txts,i,true);
 				//每次输出一次全集，因为训练实在太慢
 				StringBuilder buildStr = new StringBuilder();
 				for(int hour=0;hour<14;hour++) 
@@ -404,7 +505,7 @@ public class MechanicII_Dynamic {
 		debuglab = true;
 		if(debuglab)
 		{
-			Debugger("./data/flow0901.txt");
+			Debugger("./data/flow0907.txt");
 			return;
 		}
 		int count = 0;
