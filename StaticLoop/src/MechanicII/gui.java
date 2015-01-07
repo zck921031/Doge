@@ -86,7 +86,6 @@ public class gui extends JFrame  {
 				graph[v][u] = true;
 			}
 		}
-		
 	}
 	
 	gui()
