@@ -431,9 +431,21 @@ public class gui extends JFrame  {
 	    		
 	    		///tmp_tim
 	    		g.setColor( KOCO_Green );
-	    		g.drawString(new String("tim_cnt: "+NextAction.count_tick),Penaltyx-dPx,Penaltyy+170 + (21)*12 );
+	    		g.drawString(new String("tim_cnt: "+NextAction.count_tick),Penaltyx-dPx,Penaltyy+170 + (21)*12 );	    		
 	    		
+	    		//exit:
+		    	int fullexit = 0;
+		    	for(int i=1;i<flowdata.roadNum;i++)
+		    	{
+		    		if(flowdata.hasRoadID[i]==false)
+		    		{
+		    			fullexit += flowdata.roadFlowSum[i][flowdata.lastTimID];
+		    		}
+		    	}
+		    	g.setColor( Color.blue );
+	    		g.drawString(new String("exit: "+fullexit),Penaltyx-dPx,Penaltyy+170 + (24)*12 );
 	    	}
+	    	
 	    	//Draw flowdata.txt
     		g.setColor( Color.black );
     		g.setFont(new Font("Dotum",  Font.BOLD, 12));
