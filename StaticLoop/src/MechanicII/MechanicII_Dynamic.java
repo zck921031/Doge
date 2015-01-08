@@ -124,7 +124,7 @@ public class MechanicII_Dynamic {
 				
 				if(flowdata.GotoID[i][0]>0 && flowdata.hasRoadID[flowdata.GotoID[i][0]]==false)//左行一级放行
 				{
-					if(flowdata.tmp_trafficlight[i][0]==0 && flowdata.roadFlow[i][flowdata.lastTimID] >= 2)
+					if(flowdata.tmp_trafficlight[i][0]==0 && flowdata.roadFlow[i][flowdata.lastTimID] >= 2 &&flowdata.roadFlow[i][flowdata.lastTimID] <= 30)
 					{
 						flowdata.tmp_trafficlight[i][0]=1;
 					}
@@ -133,6 +133,7 @@ public class MechanicII_Dynamic {
 				if(flowdata.GotoID[i][0]>0 && ScoreRoad[flowdata.GotoID[i][0]]==48)//左行二级级放行
 				{
 					if(flowdata.tmp_trafficlight[i][0]==0 && flowdata.roadFlow[i][flowdata.lastTimID] >= 2
+							//&& flowdata.roadFlow[i][flowdata.lastTimID] <= 30
 							&& flowdata.roadFlow[flowdata.GotoID[i][0]][flowdata.lastTimID] <=8)
 					{
 						flowdata.tmp_trafficlight[i][0]=1;
