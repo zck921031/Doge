@@ -37,7 +37,7 @@ int main(){
     return 0;
 }
 void output(){
-    FILE *fout = fopen("meanflow.txt","w");
+    FILE *fout = fopen("flow0908_guess.txt","w");
     for (auto s: roadkey2roadid){
         string key = s.first;
         int roadid = s.second;
@@ -55,7 +55,7 @@ void analyse(){
     for (int r=0; r<ROAD; r++)
     for (int tim=0; tim<TIM; tim++)
     for (int day=0; day<DAY; day++){
-        mean[r][tim] += (double)flow[r][tim][day]/(double)DAY;
+        mean[r][tim] += (double)flow[r][tim][day]/(double)DAY * 0.84;
     }
 
     double mse = 0, me = 0;
