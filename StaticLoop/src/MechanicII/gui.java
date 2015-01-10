@@ -18,7 +18,8 @@ public class gui extends JFrame  {
 	private static JComboBox jcb2 = null;
 	static String JudgeTxt = "./data/flow0901.txt";
 	//static String Running_AI = "java -classpath ./bin   MechanicII/Mechanic";
-	static String Running_AI = "java -classpath ./bin  MechanicII/MechanicII_Dynamic";
+	//static String Running_AI = "java -classpath ./bin  MechanicII/MechanicII_Dynamic";
+	static String Running_AI = "java -classpath ./bin  MechanicII/MechanicII_Dynamic_extend";
 	
 	//static String Running_AI = "java -classpath ./bin/ its.Main";
 	

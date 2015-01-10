@@ -207,8 +207,8 @@ public class MechanicII_Dynamic {
 		//String[] PeriodTable =  NewRuleBreakTrafficRule_lev2break.trim().split("@");
 		//String[] PeriodTable =  NewRuleBreakTrafficRule_lev2break_fasterTrain.trim().split("@");
 		//String[] PeriodTable =  NewRuleBreakTrafficRule_lev2break_fasterTrain_AddisExTRoad.trim().split("@");
-		//String[] PeriodTable =  NewRuleBreakTrafficRule_lev2break_fasterTrain_AddisExTRoad_AddLeftBreaking.trim().split("@");
-		String[] PeriodTable =NewRuleBreakTrafficRule_AllBreakingRule_useFlow0908.trim().split("@");
+		String[] PeriodTable =  NewRuleBreakTrafficRule_lev2break_fasterTrain_AddisExTRoad_AddLeftBreaking.trim().split("@");
+		//String[] PeriodTable =NewRuleBreakTrafficRule_AllBreakingRule_useFlow0908.trim().split("@");
 		
 		for(String PeriodStr : PeriodTable)
 		{
@@ -230,8 +230,8 @@ public class MechanicII_Dynamic {
 		for(int i=0;i<flowdata.roadNum;i++) for(int j=0;j<14;j++) if(flowdata.hasRoadID[i]) isExTRoadLab_static[i][j] = (ScoreRoad[i]>25?false:true);
 		
 		//String isExTRoadLab_Rule = isExTRoadLab_Rule_init;
-		//String isExTRoadLab_Rule = isExTRoadLab_Rule_AddLeftBreaking;
-		String isExTRoadLab_Rule = isExTRoadLab_Rule_AddLeftBreaking_useflow0908;
+		String isExTRoadLab_Rule = isExTRoadLab_Rule_AddLeftBreaking;
+		//String isExTRoadLab_Rule = isExTRoadLab_Rule_AddLeftBreaking_useflow0908;
 		
 		if(isExTRoadLab_Rule.equals("")) return;
 		String[] TRoadPeriodTable = isExTRoadLab_Rule.trim().split("@");//"hourID:roadIDx,trueOrfalse;roadIDy,trueOrfalse;...;@..."
