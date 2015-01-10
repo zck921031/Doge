@@ -33,6 +33,7 @@ public class Learning_Static {
 		String[] txts = alltxt.trim().split(";");
 		for (int i=0; i<cores; i++){
 			flowdataPool[i] = new FlowData();
+			//flowdataPool[i].initTrafficLogic();
 			flowdataPool[i].initJudgeFromMultiTxts(txts);
 		}		
 		flowdata = flowdataPool[0];
@@ -186,38 +187,8 @@ public class Learning_Static {
 	
 	public static void main(String[] args) {
 		Learning_Static test = new Learning_Static();
-		//test.test1();
 		test.learning(0);
 	}
-//	void test1() {
-//		for (int i=0; i<cores; i++){
-//			System.out.println( flowdataPool[i].initOK );
-//		}
-//		for (int i=0; i<120; i++){
-//		
-//		}
-//		AtomicLong cc = new AtomicLong(0);
-//		int T = 101;
-//		int ii[] = new int [T];
-//		CountDownLatch count = new CountDownLatch(T);
-//		CountDownLatch core = new CountDownLatch(cores);
-//		//Thread td[] = new Thread[T];
-//		Run rv = new Run(count, 1, ii, cc);
-//		for (int i=0; i<T; i++){
-//			//td[i] = new Run(count, i, ii);
-//			new Thread( new Run(count, i, ii, cc) ).start();
-//		}
-////		for (int i=0; i<T; i++){
-////			td[i].start();
-////		}	
-//
-//		try {
-//			count.await();
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//		System.out.println( "finish~" + ii[0] );
-//	}
 	void DebugPrint(String context){if(debuglab) System.out.println(context);}
 }
 
@@ -283,39 +254,5 @@ class CalcGradientThreads extends Thread{
 			result[modelid] = Run120T.run120T(flowdata, lightModel_static, periodID, lightRoadA_static);			
 			count.countDown();
 		}		
-	}
-	
+	}	
 }
-///**
-// * 
-// * for test
-// *
-// */
-//class Run extends Thread{
-//	CountDownLatch count;
-//	int idx;
-//	static int id;
-//	int ii[];
-//	AtomicLong cc;
-//	Run(CountDownLatch c, int _idx ,int _ii[], AtomicLong _cc){
-//		count = c;
-//		idx=_idx;
-//		ii = _ii;
-//		cc = _cc;
-//	}
-//	public void run(){		
-//		synchronized(count){
-////			for (int i=0; i<1e6; i++) 
-////			{
-////				ii[0]++;
-////			}
-//			System.out.println( cc.getAndAdd(1) + " : " + ii[0] );
-//		}
-//		try {
-//			Thread.sleep(1000);			
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-//		count.countDown();
-//	}
-//}

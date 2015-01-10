@@ -41,7 +41,7 @@ public class GreedySearch {
 				for (int j = 0; j < flowdata.lightLinkRoad[i].size(); j++ )
 				{
 					int r = flowdata.lightLinkRoad[i].get(j);
-					sum += flowdata.CalcRoadPenalty(r, TimID);
+					sum += flowdata.CalcuRoadStay(r, TimID)*(120 - TimID%120);
 					//System.out.println( flowdata.RoadString(r) );
 				}
 				if ( best > sum ){

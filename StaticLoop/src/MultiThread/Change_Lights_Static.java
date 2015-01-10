@@ -12,6 +12,7 @@ public class Change_Lights_Static {
 	static void initScoreRoad()
 	{
 		FlowData flowdata = new FlowData();
+		flowdata.initTrafficLogic();
 		int roadNum = flowdata.roadNum;
 		ScoreRoad = new int[roadNum];
 		for(int i=1;i<roadNum;i++)
@@ -126,7 +127,8 @@ public class Change_Lights_Static {
 		if(roadID <= 0 ) return false;
 //		int Yu = 60;
 //		if ( learninglab ){
-			if(ScoreRoad[roadID]<=25) return true;
+		
+			if(ScoreRoad[roadID]<=25) return true;			
 //		}else{
 //			if(ScoreRoad[roadID]<=25 || flowdata.roadFlow[roadID][TimID]>= Yu) return true;
 //		}

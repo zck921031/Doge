@@ -25,6 +25,7 @@ public final class FlowData
 	public boolean hasTrafficLight[][];///(roadID,3) {0:L,1:R,2:S} hasTrafficLight[roadid][L/S/R]=true => there is an exit
 	public int tmp_trafficlight[][];///(roadID,3) {0:L,1:R,2:S}
 	public int history_trafficlight[][][];///(roadID,3,CountTime)
+	public int lastGreenlight[][];///(roadID,3)
 	public int GotoID[][];///(roadID,3){0:L,1:R,2:S}
 	public int FromID[][];///(roadID,3){0:L,1:R,2:S} GotoID[ FromID[roadID][0|1|2] ][0|1|2] = roadID;
 	public int antiRoadID[];///(roadID) roadID = (u,v); antiRoadID[roadID] = (v,u)
@@ -46,17 +47,14 @@ public final class FlowData
 	public boolean initOK=false;
 	public int lastTimID;
 	
-	/**
-	 * 构造函数里执行了initTrafficLogic();
-	 */
 	FlowData()
 	{
 		initOK = false;
 		lastTimID = -1;
-		initTrafficLogic();
 	}
 	public void initJudgeFromFreedomData(int MAXUP)
 	{
+		initTrafficLogic();
 		//freedom data
 		for(int id = 1;id<roadNum;id++)
 		{
@@ -71,6 +69,7 @@ public final class FlowData
 	}
 	public void initJudgeFromTxt(String FileName)/// e.g ".\\data\\flow0901.txt"
 	{
+		initTrafficLogic();
 		///read data from file_txt:
 		{
 			File file = new File(FileName);
@@ -115,6 +114,7 @@ public final class FlowData
 	}
 	public void initJudgeFromMultiTxts(String[] FileNameSet)/// e.g ".\\data\\flow0901.txt"
 	{
+		initTrafficLogic();
 		BigDataNum = 0;
 		for(String FileName : FileNameSet)
 		{
@@ -206,6 +206,7 @@ public final class FlowData
 		BigDataTable  = new int[16][roadNum][1690];
 		history_trafficlight = new int[roadNum][3][1690];
 		tmp_trafficlight = new int[roadNum][3];
+		lastGreenlight   = new int[roadNum][3];
 		penalty = new double[1680/120+1];
 		road_penalty = new double[roadNum];
 		SumPenalty = 0;
@@ -337,6 +338,8 @@ public final class FlowData
 			for(int i=0;i<3;i++)
 			{
 				tmp_trafficlight[Roadid][i] = toInt(ss[i+2]);
+				if(tmp_trafficlight[Roadid][i] == 1) lastGreenlight[Roadid][i] = lastTimID;
+				else if(lastTimID%120==0) lastGreenlight[Roadid][i] = lastTimID-1;
 			}
 		}
 		///judge traffic light:
@@ -409,7 +412,12 @@ public final class FlowData
 		for(int id=0;id<roadNum;id++)
 		{
 			if(hasRoadID[id]==false) continue;
-			for(int j=0;j<3;j++) history_trafficlight[id][j][lastTimID] = tmp_trafficlight[id][j];
+			for(int j=0;j<3;j++) 
+			{
+				history_trafficlight[id][j][lastTimID] = tmp_trafficlight[id][j];
+				if(tmp_trafficlight[id][j]==1) lastGreenlight[id][j] = lastTimID;
+				else if(lastTimID%120==0) lastGreenlight[id][j] = lastTimID-1;
+			}
 		}
 		
 	}
@@ -437,7 +445,7 @@ public final class FlowData
 	
 	public double updataPenalty(int TimID)
 	{
-		if(TimID>=1681||lastTimID==1680) {System.out.println("out of time range!");return 0;}
+		if(TimID>=1680||lastTimID==1680) {System.out.println("out of time range!");return 0;}
 		double tmpSum = 0;
 		for(int id=0;id<roadNum;id++)
 		{
@@ -474,6 +482,19 @@ public final class FlowData
 			//违规扣分
 			tFlowStay += 0.5*a + b;
 			
+			//>4T罚时
+			//int PeriodStart = (TimID/120)*120;
+			for(int j=0;j<3;j++)
+			{
+				if(GotoID[id][j]<=0) continue;//黑灯不判
+				//int LastID      =  TimID;
+				//while(LastID>=PeriodStart && history_trafficlight[id][j][LastID]==0) LastID--;
+				//tFlowStay += (int)Math.ceil((double)roadFlow[id][TimID] * Math.sqrt(Math.max(0, TimID-LastID-4)));
+				//O(1):
+				tFlowStay += (int)Math.ceil((double)roadFlow[id][TimID] * Math.sqrt(Math.max(0, TimID-lastGreenlight[id][j]-4)));
+				//if(LastID!=lastGreenlight[id][j]) System.out.println(RoadString(id)+" "+j+" wrong last green : true:"+LastID+" false:"+lastGreenlight[id][j]);
+			}
+			
 			road_penalty[id]   +=  tFlowStay;
 			penalty[TimID/120] +=  tFlowStay;
 			SumPenalty         +=  tFlowStay;
@@ -486,7 +507,7 @@ public final class FlowData
 	public void updata(int timID)
 	///timID will from [0,1680], we define timID == lastIimID+1!
 	{
-		if(timID>=1681||lastTimID==1680) {System.out.println("out of time range!");return;}
+		if(timID>=1680||lastTimID==1680) {System.out.println("out of time range!");return;}
 		//
 		if(timID%120==0)// clearMemory|but we do not Remove memory| 
 		{
