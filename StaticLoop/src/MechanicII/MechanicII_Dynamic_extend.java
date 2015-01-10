@@ -17,7 +17,7 @@ import java.io.File;
 import java.io.FileOutputStream;  
 
 public class MechanicII_Dynamic_extend {
-	static int partNum = 4;//120T分为几段
+	static int partNum = 2;//120T分为几段
 	static FlowData flowdata = null;
 	static MechanicII_Model lightmodel = null;/// haven't init
 	static boolean debuglab = false;
