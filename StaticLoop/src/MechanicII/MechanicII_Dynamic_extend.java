@@ -17,7 +17,7 @@ import java.io.File;
 import java.io.FileOutputStream;  
 
 public class MechanicII_Dynamic_extend {
-	static int partNum = 1;//120T分为几段
+	static int partNum = 2;//120T分为几段
 	static FlowData flowdata = null;
 	static MechanicII_Model lightmodel = null;/// haven't init
 	static boolean debuglab = false;
@@ -130,20 +130,9 @@ public class MechanicII_Dynamic_extend {
 		{
 			if(flowdata.hasRoadID[i])
 			{
-				if(flowdata.GotoID[i][2]!=-1 && flowdata.hasRoadID[flowdata.GotoID[i][2]]==false)//一级放行策略
+				if(isBreakingRoad(i,flowdata.lastTimID))//直线放行策略
 				{
-					if(flowdata.tmp_trafficlight[i][2]==0 && flowdata.roadFlow[i][flowdata.lastTimID] >= Yu)
-					{
-						flowdata.tmp_trafficlight[i][2]=1;
-					}
-				}
-				if(ScoreRoad[i]==46)//二级放行策略
-				{
-					if(flowdata.tmp_trafficlight[i][2]==0 && flowdata.roadFlow[i][flowdata.lastTimID] >= 16 && 
-							flowdata.roadFlow[flowdata.GotoID[i][2]][flowdata.lastTimID] <=32)
-					{
-						flowdata.tmp_trafficlight[i][2]=1;
-					}
+					flowdata.tmp_trafficlight[i][2]=1;
 				}
 				
 				if(flowdata.GotoID[i][0]>0 && flowdata.hasRoadID[flowdata.GotoID[i][0]]==false)//左行一级放行
@@ -153,7 +142,6 @@ public class MechanicII_Dynamic_extend {
 						flowdata.tmp_trafficlight[i][0]=1;
 					}
 				}
-				
 				if(flowdata.GotoID[i][0]>0 && ScoreRoad[flowdata.GotoID[i][0]]==48)//左行二级级放行
 				{
 					if(flowdata.tmp_trafficlight[i][0]==0 && flowdata.roadFlow[i][flowdata.lastTimID] >= 2
@@ -195,9 +183,9 @@ public class MechanicII_Dynamic_extend {
 		lightRoadA_static = new int[flowdata.tlNum];
 		for(int i=1;i<flowdata.tlNum;i++) lightRoadA_static[i] = flowdata.lightLinkRoad[i][0];
 		
-		String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_lev2break_fasterTrain_AddisExTRoad_AddLeftBreaking.trim().split("@");
+		//String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_lev2break_fasterTrain_AddisExTRoad_AddLeftBreaking.trim().split("@");
 		//String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_TrainFrom0908_partof2.trim().split("@");
-		//String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof2.trim().split("@");
+		String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof2.trim().split("@");
 		//String[] PeriodTable = Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof6.trim().split("@");
 		//String[] PeriodTable = Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof6_0908.trim().split("@");
 				
@@ -231,33 +219,74 @@ public class MechanicII_Dynamic_extend {
 		isExTRoadLab_static = new boolean[flowdata.roadNum][partNum*14];
 		for(int i=0;i<flowdata.roadNum;i++) for(int j=0;j<partNum*14;j++) if(flowdata.hasRoadID[i]) isExTRoadLab_static[i][j] = (ScoreRoad[i]>25?false:true);
 		
-		String isExTRoadLab_Rule = Constants.isExTRoadLab_Rule_AddLeftBreaking;
+		//String isExTRoadLab_Rule = Constants.isExTRoadLab_Rule_AddLeftBreaking;
 		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFrom_0908_partof2;
-		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof2;
+		String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof2;
 		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof6;
 		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof6_0908;
-		if(isExTRoadLab_Rule.equals("")) return;
-		String[] TRoadPeriodTable = isExTRoadLab_Rule.trim().split("@");//"hourID:roadIDx,trueOrfalse;roadIDy,trueOrfalse;...;@..."
-		int lablen2 = PeriodTable.length;
-		for(String PeriodStr : TRoadPeriodTable)
+		if(isExTRoadLab_Rule.equals("")==false) 
 		{
-			String[] PStr = PeriodStr.trim().split(":");
-			int PeriodID = flowdata.toInt(PStr[0]);
-			String[] roadStr = PStr[1].trim().split(";");
-			for(String ss : roadStr)
+			String[] TRoadPeriodTable = isExTRoadLab_Rule.trim().split("@");//"hourID:roadIDx,trueOrfalse;roadIDy,trueOrfalse;...;@..."
+			int lablen2 = TRoadPeriodTable.length;
+			for(String PeriodStr : TRoadPeriodTable)
 			{
-				//DebugPrint(ss);
-				String[] s = ss.trim().split(",");
-				int roadID = flowdata.toInt(s[0]);
-				int trueorfalse = flowdata.toInt(s[1]);
-				if(lablen2<14*partNum)
+				String[] PStr = PeriodStr.trim().split(":");
+				int PeriodID = flowdata.toInt(PStr[0]);
+				String[] roadStr = PStr[1].trim().split(";");
+				for(String ss : roadStr)
 				{
-					int pass = 14*partNum/lablen2;
-					for(int i=0;i<pass;i++) isExTRoadLab_static[roadID][PeriodID*pass+i]   = (trueorfalse==1);
+					//DebugPrint(ss);
+					String[] s = ss.trim().split(",");
+					int roadID = flowdata.toInt(s[0]);
+					int trueorfalse = flowdata.toInt(s[1]);
+					if(lablen2<14*partNum)
+					{
+						int pass = 14*partNum/lablen2;
+						for(int i=0;i<pass;i++) isExTRoadLab_static[roadID][PeriodID*pass+i]   = (trueorfalse==1);
+					}
+					else
+					{
+						isExTRoadLab_static[roadID][PeriodID] = (trueorfalse==1);
+					}
 				}
-				else
+			}
+		}
+		
+		//init isBreakingRoadLab_static
+		isBreakingRoadLab_static = new int[flowdata.roadNum][partNum*14];
+		for(int i=0;i<flowdata.roadNum;i++) for(int j=0;j<partNum*14;j++)if(flowdata.hasRoadID[i])
+		{
+			 isBreakingRoadLab_static[i][j] = 0;
+			 if(ScoreRoad[i]==48) isBreakingRoadLab_static[i][j] = 1;
+			 if(ScoreRoad[i]==46) isBreakingRoadLab_static[i][j] = 2;
+		}
+		/////////////////////////////
+		String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_Rule;
+		
+		if(isBreakingRoadLab_Rule.equals("")==false)
+		{
+			String[] BreakRuleTable = isBreakingRoadLab_Rule.trim().split("@");//"hourID:roadIDx,breakLev;roadIDy,breakLev;...;@..."
+			int lablen3 = BreakRuleTable.length;
+			for(String PeriodStr : BreakRuleTable)
+			{
+				String[] PStr = PeriodStr.trim().split(":");
+				int PeriodID = flowdata.toInt(PStr[0]);
+				String[] roadStr = PStr[1].trim().split(";");
+				for(String ss : roadStr)
 				{
-					isExTRoadLab_static[roadID][PeriodID] = (trueorfalse==1);
+					//DebugPrint(ss);
+					String[] s = ss.trim().split(",");
+					int roadID = flowdata.toInt(s[0]);
+					int lev = flowdata.toInt(s[1]);
+					if(lablen3<14*partNum)
+					{
+						int pass = 14*partNum/lablen3;
+						for(int i=0;i<pass;i++) isBreakingRoadLab_static[roadID][PeriodID*pass+i]   = lev;
+					}
+					else
+					{
+						isBreakingRoadLab_static[roadID][PeriodID] = lev;
+					}
 				}
 			}
 		}
@@ -341,7 +370,7 @@ public class MechanicII_Dynamic_extend {
 	}
 	
 	//一个周期前后partNum段不一样
-	static int[] canAdvance_static_faster(int periodID,int partID)//partID = 0 or 1
+	static int[] canAdvance_static_faster(int periodID,int partID)//partID = 0 or 1 or .....
 	{
 		int LastPenalty = FastRunning120T_static(periodID);
 		DebugPrint("last Penalty achieve: " + LastPenalty +"  periodID: "+periodID+" part: "+partID);
@@ -470,6 +499,75 @@ public class MechanicII_Dynamic_extend {
 		return null;
 	}
 	
+	//一个周期前后partNum段不一样
+	static int[] canAdvance_static_faster_and_learnisBreakRoad(int periodID,int partID)//partID = 0 or 1 or .....
+	{
+		int LastPenalty = FastRunning120T_static(periodID);
+		DebugPrint("it's Breaking Rule last Penalty achieve: " + LastPenalty +"  periodID: "+periodID+" part: "+partID);
+		int[][] RoadBreakBestModelIDandBestAdvanceValue = new int[flowdata.roadNum][2];//((X,0):bestModel,(X,1):bestAdvance)
+		int SortArray[] = new int[flowdata.roadNum];
+		for(int roadID=1;roadID<flowdata.roadNum;roadID++)
+		{	
+			if(flowdata.hasRoadID[roadID]==false) continue;
+			int oldModelID = isBreakingRoadLab_static[roadID][periodID*partNum + partID];
+			int tmpBeastModelID = 0 , tmpBestAdvanceValue = 0;
+			RoadBreakBestModelIDandBestAdvanceValue[roadID][1] = 0;
+			for(int modelid = 0;modelid < BreakingLevNum;modelid++)
+			{
+				if(modelid==oldModelID) continue;
+				isBreakingRoadLab_static[roadID][periodID*partNum + partID] = modelid;
+				int tmpPenalty = FastRunning120T_static(periodID);
+				if(LastPenalty-tmpPenalty>tmpBestAdvanceValue)
+				{
+					tmpBestAdvanceValue = LastPenalty-tmpPenalty;
+					tmpBeastModelID = modelid;
+				}
+			}
+			isBreakingRoadLab_static[roadID][periodID*partNum + partID] = oldModelID;
+			RoadBreakBestModelIDandBestAdvanceValue[roadID][0] = tmpBeastModelID;
+			RoadBreakBestModelIDandBestAdvanceValue[roadID][1] = tmpBestAdvanceValue;
+			if(tmpBestAdvanceValue>0) SortArray[roadID] = tmpBestAdvanceValue*400 + roadID;
+		}
+		
+		Arrays.sort(SortArray);
+		ArrayList <Integer> chooseChange = new ArrayList<Integer>();
+		for(int i = flowdata.roadNum - 1 ; i>=0;i--)
+		{
+			int roadID  = (int)(SortArray[i]%400);
+			int advance = (int)(SortArray[i]/400);
+			
+			if(advance>0)
+			{
+				int modelid = isBreakingRoadLab_static[roadID][periodID*partNum + partID];
+				int tmpPenalty = FastRunning120T_static(periodID);//改之前
+				isBreakingRoadLab_static[roadID][periodID*partNum + partID] = RoadBreakBestModelIDandBestAdvanceValue[roadID][0];
+				int newPenalty = FastRunning120T_static(periodID);//改后
+				if(tmpPenalty<=newPenalty)//不提升不修改
+				{
+					isBreakingRoadLab_static[roadID][periodID*partNum + partID] = modelid ;//还原
+				}
+				else
+				{
+					chooseChange.add(roadID);
+					chooseChange.add(RoadBreakBestModelIDandBestAdvanceValue[roadID][0]);
+				}
+			}
+		}
+		int sumAdvance = LastPenalty - FastRunning120T_static(periodID);
+		chooseChange.add(sumAdvance);
+		
+		if(sumAdvance>0)
+		{
+			int[] ret = new int[chooseChange.size()];
+			for(int i=0;i<ret.length;i++)
+			{
+				ret[i] = chooseChange.get(i).intValue();
+			}
+			return ret;
+		}
+		return null;
+	}
+	
 	static int[] canAdvance_static(int periodID)
 	{
 		int LastPenalty = FastRunning120T_static(periodID);
@@ -505,6 +603,7 @@ public class MechanicII_Dynamic_extend {
 		int[] AdvanceInfo = null;
 		for(int partID=0;partID<partNum;partID++)
 		{
+			/*
 			if((AdvanceInfo=canAdvance_static_faster(periodID,partID))!=null)
 			{
 				int changeNum = AdvanceInfo.length/2;//([0,changeNum*2-1],changeInfo,[changeNum*2]=>sum advance)
@@ -521,6 +620,16 @@ public class MechanicII_Dynamic_extend {
 				int changeNum = AdvanceInfo.length/2;//([0,changeNum*2-1],changeInfo,[changeNum*2]=>sum advance)
 				for(int i=0;i<changeNum;i++){
 					DebugPrint(""+RunningTim+" : BestRoadID:"+AdvanceInfo[i*2+0]+",BestModel:"+ AdvanceInfo[i*2+1]+";");
+				}
+				DebugPrint("Advance : "+AdvanceInfo[changeNum*2]);
+				ret += AdvanceInfo[changeNum*2];
+			}
+			*/
+			if((AdvanceInfo = canAdvance_static_faster_and_learnisBreakRoad(periodID,partID)) != null )
+			{
+				int changeNum = AdvanceInfo.length/2;//([0,changeNum*2-1],changeInfo,[changeNum*2]=>sum advance)
+				for(int i=0;i<changeNum;i++){
+					DebugPrint("BreakRule: "+RunningTim+" : BestRoadID:"+AdvanceInfo[i*2+0]+", "+flowdata.RoadString(AdvanceInfo[i*2+0])+",BestModel:"+ AdvanceInfo[i*2+1]+";");
 				}
 				DebugPrint("Advance : "+AdvanceInfo[changeNum*2]);
 				ret += AdvanceInfo[changeNum*2];
@@ -581,7 +690,7 @@ public class MechanicII_Dynamic_extend {
 		}
 		
 		DebugPrint("Learning End! and Advanced : " + fullAdvance);
-		String[] retStrs = new String[2];
+		String[] retStrs = new String[3];
 		///OutPut Traffic Light Rule Table:
 		StringBuilder ret1 = new  StringBuilder();
 		for(int partID=0;partID<partNum;partID++){
@@ -610,6 +719,19 @@ public class MechanicII_Dynamic_extend {
 		}
 		DebugPrint(ret2.toString());
 		retStrs[1] = ret2.toString();
+		
+		//Output road is BreakRoad Lab :
+		StringBuilder ret3 = new  StringBuilder();
+		for(int partID=0;partID<partNum;partID++){
+			ret3.append(""+(periodID*partNum+partID)+":");
+			for(int roadID = 1;roadID < flowdata.roadNum;roadID++)
+			{
+				ret3.append(""+roadID+","+(isBreakingRoadLab_static[roadID][periodID*partNum+partID])+";");
+			}
+			ret3.append("@");
+		}
+		DebugPrint(ret3.toString());
+		retStrs[2] = ret3.toString();
 		return retStrs;
 	}
 	 
@@ -624,10 +746,10 @@ public class MechanicII_Dynamic_extend {
 		try{
 			FileOutputStream outfile1 = new FileOutputStream("./"+OutPutFile+"_"+fasterLab+"_resultOf_tlModel_"+PeriodIDStr+".txt");
 			FileOutputStream outfile2 = new FileOutputStream("./"+OutPutFile+"_"+fasterLab+"_resultOf_RoadLab_"+PeriodIDStr+".txt");
-			//String alltxt = "./data/flow0901.txt;./data/flow0902.txt;./data/flow0903.txt;./data/flow0904.txt;./data/flow0905.txt;./data/flow0907.txt;";
+			String alltxt = "./data/flow0901.txt;./data/flow0902.txt;./data/flow0903.txt;./data/flow0904.txt;./data/flow0905.txt;./data/flow0907.txt;";
 			//String alltxt = "./data/flow0901.txt;./data/flow0903.txt;./data/flow0905.txt;./data/flow0907.txt;";
 			//String alltxt = "./data/flow0901.txt;";
-			String alltxt = "./data/flow0908_guess.txt;";
+			//String alltxt = "./data/flow0908_guess.txt;";
 			String[] txts = alltxt.trim().split(";");
 			debuglab = true;///for print 
 			flowdata = new FlowData();
@@ -664,12 +786,14 @@ public class MechanicII_Dynamic_extend {
 			//debuglab = true;///for print 
 			String lastStr1 = "";
 			String lastStr2 = "";
+			String lastStr3 = "";
 			for(int i=0;i<14;i++)
 			{
 				//String[] ret = windhunterLearningII_static(txts,i,false);
 				String[] ret = windhunterLearningII_static(txts,i,true);
 				lastStr1 += ret[0];
 				lastStr2 += ret[1];
+				lastStr3 += ret[2];
 				//每次输出一次全集，因为训练实在太慢
 				/*
 				StringBuilder buildStr = new StringBuilder();
@@ -691,6 +815,7 @@ public class MechanicII_Dynamic_extend {
 			DebugPrint("NewRule:");
 			DebugPrint(lastStr1);
 			DebugPrint(lastStr2);
+			DebugPrint(lastStr3);
 			return;
 		}
 		
