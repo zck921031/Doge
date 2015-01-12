@@ -8,7 +8,19 @@ int flow[ROAD][TIM][DAY];
 vector< vector<double> > mean(ROAD, vector<double>(TIM,0) );
 char str_v[1024],str_u[1024];
 void analyse();
-void output();
+void output(int day);
+void outputkey(){
+    FILE *fout = fopen( "roadkey.txt", "w");
+    for (auto s: roadkey2roadid){
+        string key = s.first;
+        int roadid = s.second;
+        key.replace( key.find("-"),1 ,"," );
+        //cout<<key<<" "<<roadid<<endl;
+        fprintf( fout, "%s\n", key.c_str() );
+    }
+    fclose(fout);
+
+}
 int main(){
     FILE *fin;
     for (int day=0; day<DAY; day++){
@@ -32,20 +44,23 @@ int main(){
         }
         fclose(fin);
     }
-    analyse();
-    output();
+    //analyse();
+    //for (int i=0; i<DAY; i++) output(i);
+    outputkey();
     return 0;
 }
-void output(){
-    FILE *fout = fopen("flow0908_guess.txt","w");
+void output(int day){
+    FILE *fout = fopen( (string("flow090")+char('1'+day)+".csv" ).c_str(), "w");
     for (auto s: roadkey2roadid){
         string key = s.first;
         int roadid = s.second;
         key.replace( key.find("-"),1 ,"," );
-        cout<<key<<" "<<roadid<<endl;
-        fprintf( fout, "%s", key.c_str() );
+        //cout<<key<<" "<<roadid<<endl;
+        //fprintf( fout, "%s", key.c_str() );
         for (int i=0; i<TIM; i++){
-            fprintf( fout, ",%d", (int)round(mean[roadid][i]) );
+            //fprintf( fout, ",%d", (int)round(mean[roadid][i]) );
+            if (i>0) fprintf( fout, "," );
+            fprintf( fout, "%d", (int)flow[roadid][i][day] );
         }
         fprintf(fout, "\n");
     }
