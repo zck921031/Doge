@@ -17,7 +17,7 @@ import java.io.File;
 import java.io.FileOutputStream;  
 
 public class MechanicII_Dynamic_extend {
-	static int partNum = 6;//120T分为几段
+	static int partNum = 1;//120T分为几段
 	static FlowData flowdata = null;
 	static MechanicII_Model lightmodel = null;/// haven't init
 	static boolean debuglab = false;
@@ -88,6 +88,31 @@ public class MechanicII_Dynamic_extend {
 		}
 	}
 	
+	static int BreakingLevNum = 4;//放行策略总数(0,1,2,..,BreakingLevNum-1)
+	static int isBreakingRoadLab_static[][]; //(RoadID,period)每个周期每条路的用哪种放行策略
+	static boolean isBreakingRoad(int roadID,int TimID)///extended T road!
+	{
+		if(roadID <= 0 || flowdata.hasRoadID[roadID]==false ) return false;
+		int cas = isBreakingRoadLab_static[roadID][TimID/(120/partNum)];
+		if(cas == 0) return false;//不可犯规
+		if(cas == 1)//验证一级策略,只要该路段车辆多于10即可放行
+		{
+			if(flowdata.roadFlow[roadID][TimID] >= 10) return true;
+			return false;
+		}
+		if(cas == 2)//验证二级策略,只要该路段车辆多于16且前方路段少于32辆车
+		{
+			int nxtRoadID = flowdata.GotoID[roadID][2];
+			if(nxtRoadID>0 && flowdata.hasRoadID[nxtRoadID] && flowdata.roadFlow[roadID][TimID] >= 16 && flowdata.roadFlow[nxtRoadID][TimID] <= 32) 
+				return true;
+			return false;
+		}
+		if(cas == 3)//验证三级策略，无论如何可以犯规
+		{
+			return true;
+		}
+		return false;
+	}
 	
 	static boolean isExTRoadLab_static[][];  //(RoadID,PeriodID)每个周期每条路的isExTRoadLab是不一样的
 	static boolean isExTRoad(int roadID,int TimID)///extended T road!
@@ -170,10 +195,11 @@ public class MechanicII_Dynamic_extend {
 		lightRoadA_static = new int[flowdata.tlNum];
 		for(int i=1;i<flowdata.tlNum;i++) lightRoadA_static[i] = flowdata.lightLinkRoad[i][0];
 		
-		//String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_lev2break_fasterTrain_AddisExTRoad_AddLeftBreaking.trim().split("@");
+		String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_lev2break_fasterTrain_AddisExTRoad_AddLeftBreaking.trim().split("@");
 		//String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_TrainFrom0908_partof2.trim().split("@");
 		//String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof2.trim().split("@");
-		String[] PeriodTable = Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof6.trim().split("@");
+		//String[] PeriodTable = Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof6.trim().split("@");
+		//String[] PeriodTable = Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof6_0908.trim().split("@");
 				
 		int lablen = PeriodTable.length;
 		//DebugPrint(""+lablen);
@@ -205,10 +231,11 @@ public class MechanicII_Dynamic_extend {
 		isExTRoadLab_static = new boolean[flowdata.roadNum][partNum*14];
 		for(int i=0;i<flowdata.roadNum;i++) for(int j=0;j<partNum*14;j++) if(flowdata.hasRoadID[i]) isExTRoadLab_static[i][j] = (ScoreRoad[i]>25?false:true);
 		
-		//String isExTRoadLab_Rule = Constants.isExTRoadLab_Rule_AddLeftBreaking;
+		String isExTRoadLab_Rule = Constants.isExTRoadLab_Rule_AddLeftBreaking;
 		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFrom_0908_partof2;
 		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof2;
-		String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof6;
+		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof6;
+		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof6_0908;
 		if(isExTRoadLab_Rule.equals("")) return;
 		String[] TRoadPeriodTable = isExTRoadLab_Rule.trim().split("@");//"hourID:roadIDx,trueOrfalse;roadIDy,trueOrfalse;...;@..."
 		int lablen2 = PeriodTable.length;
