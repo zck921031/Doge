@@ -47,6 +47,8 @@ public final class FlowData
 	public boolean initOK=false;
 	public int lastTimID;
 	
+	public boolean breakingRule[][];//(roadID,time) whether has broken the rule.
+	
 	FlowData()
 	{
 		initOK = false;
@@ -217,6 +219,8 @@ public final class FlowData
 		GotoID           = new int[roadNum][3];
 		FromID           = new int[roadNum][3];
 		antiRoadID       = new int[roadNum];
+		
+		breakingRule    = new boolean[roadNum][1690];
 		for(int i=0;i<roadNum;i++)
 		{
 			for(int j=0;j<3;j++) FromID[i][j]=-1;
@@ -374,11 +378,13 @@ public final class FlowData
 					       ||  (rightid>=1 && tmp_trafficlight[rightid][2] == 1  )
 						 )  )
 					{
+						breakingRule[id][lastTimID] = true;
 						ret+=""+id+RoadString(id)+" VerticalConflictWithStraight-" +RoadString(leftid)+"|"+RoadString(rightid)+" ;";
 					}
 					///+ chuizhi youce buneng zuozhuan
 					if( tmp_trafficlight[id][2]==1 && rightid>=1 && tmp_trafficlight[rightid][0] == 1)
 					{
+						breakingRule[id][lastTimID] = true;
 						ret+=RoadString(id)+" ConflictRightTurnLeft-"+RoadString(rightid)+" ;";
 					}
 				}
@@ -466,6 +472,7 @@ public final class FlowData
 					((leftid>=0 && tmp_trafficlight[leftid][2]==1) 
 					|| (rightid>=0 && tmp_trafficlight[rightid][2]==1)) )
 			{
+				breakingRule[id][TimID] = true;
 				a += zeta*roadFlow[id][TimID];				
 				if ( leftid>=0 ) {
 					a += zeta*roadFlow[leftid][TimID];
@@ -476,6 +483,7 @@ public final class FlowData
 			}
 			//直行时垂直方向右侧不能左转
 			if ( tmp_trafficlight[id][2]==1 && rightid>=0 && tmp_trafficlight[rightid][0]==1 ) {
+				breakingRule[id][TimID] = true;
 				b += zeta*(roadFlow[rightid][TimID] + roadFlow[id][TimID]);
 			}
 

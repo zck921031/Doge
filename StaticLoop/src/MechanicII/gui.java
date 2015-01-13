@@ -28,6 +28,8 @@ public class gui extends JFrame  {
 	private static Color KOCO_LightBlue = new Color(20,190,220);
 	private static Color KOCO_Yellow = new Color(213,202,0);
 	private static Color KOCO_Orange = new Color(255,127,39);
+	private static Color KOCO_Purple = new Color(107,17,193);
+	private static Color KOCO_Lightred = new Color(250,89,20);
 	
 	///KOCO flowdata:
 	private static FlowData flowdata = null;
@@ -246,6 +248,50 @@ public class gui extends JFrame  {
 	    	
 	    	if(flowdata!=null && flowdata.initOK &&  flowdata.lastTimID>=0)
 	    	{
+	    		//if break rules : draw the line red
+	    		for (int i=0; i<MAXN; i++){
+					for (int j=0; j<MAXN; j++){
+						if ( graph[i][j] ){
+				    		int uy = (int) ( cx * ( px.get(i) ) + 20 );
+				    		int ux = (int) ( cy * ( py.get(i) ) + 20 );
+				    		
+				    		int vy = (int) ( cx * ( px.get(j) ) + 20 );
+				    		int vx = (int) ( cy * ( py.get(j) ) + 20 );
+				    		
+				    		int dw = 2;
+				    		if(ux==vx)
+				    		{
+				    			if(uy>vy)  {ux+=dw;vx+=dw;}
+				    			else {ux-=dw;vx-=dw;}
+				    		}
+				    		else
+				    		{
+				    			if(ux>vx) {uy-=dw;vy-=dw;}
+				    			else {uy+=dw;vy+=dw;}
+				    		}
+				    		
+				    		int roadID = flowdata.roadID[i][j];
+				    		if(flowdata.breakingRule[roadID][flowdata.lastTimID])
+				    		{
+				    			g.setStroke(new BasicStroke(2));
+					    		g.setColor(KOCO_Lightred);
+					    		g.drawLine(ux, uy, vx, vy);
+				    		}
+						}
+					}
+					
+				}
+	    		for ( int i=1; i<=58; i++ ){
+		    		g.setColor( new Color(0, 255,232) );///Green&Blue
+		    		int y = (int) ( cx * ( px.get(i) ) + 20 );
+		    		int x = (int) ( cy * ( py.get(i) ) + 20 );
+		    		int R = 11;
+		        	g.fillOval(x-R, y-R, 2*R, 2*R );
+		        	
+		    		g.setColor( Color.BLACK );
+		    		g.setFont(new Font("Dotum",  Font.BOLD, 15));
+		        	g.drawString(i<10?"0"+i:""+i, x-10, y+5);
+		    	}
 	    		int lastTimID = flowdata.lastTimID;
 	    		for(int i=1;i<flowdata.roadNum;i++)
 	    		{

@@ -185,9 +185,10 @@ public class MechanicII_Dynamic_extend {
 		
 		//String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_lev2break_fasterTrain_AddisExTRoad_AddLeftBreaking.trim().split("@");
 		//String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_TrainFrom0908_partof2.trim().split("@");
-		String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof2.trim().split("@");
+		//String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof2.trim().split("@");
 		//String[] PeriodTable = Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof6.trim().split("@");
 		//String[] PeriodTable = Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof6_0908.trim().split("@");
+		String[] PeriodTable = Constants.NewRuleTrafficRule_AddBreakLab_part2.trim().split("@");
 				
 		int lablen = PeriodTable.length;
 		//DebugPrint(""+lablen);
@@ -221,9 +222,11 @@ public class MechanicII_Dynamic_extend {
 		
 		//String isExTRoadLab_Rule = Constants.isExTRoadLab_Rule_AddLeftBreaking;
 		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFrom_0908_partof2;
-		String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof2;
+		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof2;
 		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof6;
 		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof6_0908;
+		String isExTRoadLab_Rule = Constants.isExTRoadLab_AddBreakLab_part2;
+		
 		if(isExTRoadLab_Rule.equals("")==false) 
 		{
 			String[] TRoadPeriodTable = isExTRoadLab_Rule.trim().split("@");//"hourID:roadIDx,trueOrfalse;roadIDy,trueOrfalse;...;@..."
@@ -261,7 +264,8 @@ public class MechanicII_Dynamic_extend {
 			 if(ScoreRoad[i]==46) isBreakingRoadLab_static[i][j] = 2;
 		}
 		/////////////////////////////
-		String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_Rule;
+		//String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_Rule;
+		String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_part2;
 		
 		if(isBreakingRoadLab_Rule.equals("")==false)
 		{
@@ -603,7 +607,6 @@ public class MechanicII_Dynamic_extend {
 		int[] AdvanceInfo = null;
 		for(int partID=0;partID<partNum;partID++)
 		{
-			/*
 			if((AdvanceInfo=canAdvance_static_faster(periodID,partID))!=null)
 			{
 				int changeNum = AdvanceInfo.length/2;//([0,changeNum*2-1],changeInfo,[changeNum*2]=>sum advance)
@@ -624,7 +627,6 @@ public class MechanicII_Dynamic_extend {
 				DebugPrint("Advance : "+AdvanceInfo[changeNum*2]);
 				ret += AdvanceInfo[changeNum*2];
 			}
-			*/
 			if((AdvanceInfo = canAdvance_static_faster_and_learnisBreakRoad(periodID,partID)) != null )
 			{
 				int changeNum = AdvanceInfo.length/2;//([0,changeNum*2-1],changeInfo,[changeNum*2]=>sum advance)
@@ -746,6 +748,7 @@ public class MechanicII_Dynamic_extend {
 		try{
 			FileOutputStream outfile1 = new FileOutputStream("./"+OutPutFile+"_"+fasterLab+"_resultOf_tlModel_"+PeriodIDStr+".txt");
 			FileOutputStream outfile2 = new FileOutputStream("./"+OutPutFile+"_"+fasterLab+"_resultOf_RoadLab_"+PeriodIDStr+".txt");
+			FileOutputStream outfile3 = new FileOutputStream("./"+OutPutFile+"_"+fasterLab+"_resultOf_BreakLab_"+PeriodIDStr+".txt");
 			String alltxt = "./data/flow0901.txt;./data/flow0902.txt;./data/flow0903.txt;./data/flow0904.txt;./data/flow0905.txt;./data/flow0907.txt;";
 			//String alltxt = "./data/flow0901.txt;./data/flow0903.txt;./data/flow0905.txt;./data/flow0907.txt;";
 			//String alltxt = "./data/flow0901.txt;";
@@ -762,6 +765,7 @@ public class MechanicII_Dynamic_extend {
 			//每次输出一次全集，因为训练实在太慢
 			outfile1.write((lastStr[0]).getBytes());
 			outfile2.write((lastStr[1]).getBytes());
+			outfile3.write((lastStr[2]).getBytes());
 			return;
 		}
 		catch (Exception e) {   
