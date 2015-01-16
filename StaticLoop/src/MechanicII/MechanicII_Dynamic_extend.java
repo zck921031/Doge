@@ -17,7 +17,7 @@ import java.io.File;
 import java.io.FileOutputStream;  
 
 public class MechanicII_Dynamic_extend {
-	static int partNum = 2;//120T分为几段
+	static int partNum = 3;//120T分为几段
 	static FlowData flowdata = null;
 	static MechanicII_Model lightmodel = null;/// haven't init
 	static boolean debuglab = false;
@@ -111,6 +111,18 @@ public class MechanicII_Dynamic_extend {
 		{
 			return true;
 		}
+		/*
+		if(cas == 4)
+		{
+			int leftID = flowdata.getAntiRoad(flowdata.GotoID[roadID][0]);
+			int rightID= flowdata.getAntiRoad(flowdata.GotoID[roadID][1]);
+			int flow = 0;
+			if(leftID>0) flow+= flowdata.roadFlow[leftID][TimID];
+			if(rightID>0) flow+= flowdata.roadFlow[rightID][TimID];
+			if(flowdata.roadFlow[roadID][TimID] >= 10 && flow <= 60) return true;
+			return false;
+		}
+		*/
 		return false;
 	}
 	
@@ -188,7 +200,8 @@ public class MechanicII_Dynamic_extend {
 		//String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof2.trim().split("@");
 		//String[] PeriodTable = Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof6.trim().split("@");
 		//String[] PeriodTable = Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof6_0908.trim().split("@");
-		String[] PeriodTable = Constants.NewRuleTrafficRule_AddBreakLab_part2.trim().split("@");
+		//String[] PeriodTable = Constants.NewRuleTrafficRule_AddBreakLab_part2.trim().split("@");
+		String[] PeriodTable = Constants.NewRuleTrafficRule_AddBreakLab_part3.trim().split("@");
 				
 		int lablen = PeriodTable.length;
 		//DebugPrint(""+lablen);
@@ -225,7 +238,8 @@ public class MechanicII_Dynamic_extend {
 		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof2;
 		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof6;
 		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof6_0908;
-		String isExTRoadLab_Rule = Constants.isExTRoadLab_AddBreakLab_part2;
+		//String isExTRoadLab_Rule = Constants.isExTRoadLab_AddBreakLab_part2;
+		String isExTRoadLab_Rule = Constants.isExTRoadLab_AddBreakLab_part3;
 		
 		if(isExTRoadLab_Rule.equals("")==false) 
 		{
@@ -265,7 +279,8 @@ public class MechanicII_Dynamic_extend {
 		}
 		/////////////////////////////
 		//String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_Rule;
-		String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_part2;
+		//String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_part2;
+		String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_part3;
 		
 		if(isBreakingRoadLab_Rule.equals("")==false)
 		{
@@ -627,6 +642,7 @@ public class MechanicII_Dynamic_extend {
 				DebugPrint("Advance : "+AdvanceInfo[changeNum*2]);
 				ret += AdvanceInfo[changeNum*2];
 			}
+			
 			if((AdvanceInfo = canAdvance_static_faster_and_learnisBreakRoad(periodID,partID)) != null )
 			{
 				int changeNum = AdvanceInfo.length/2;//([0,changeNum*2-1],changeInfo,[changeNum*2]=>sum advance)
@@ -749,7 +765,8 @@ public class MechanicII_Dynamic_extend {
 			FileOutputStream outfile1 = new FileOutputStream("./"+OutPutFile+"_"+fasterLab+"_resultOf_tlModel_"+PeriodIDStr+".txt");
 			FileOutputStream outfile2 = new FileOutputStream("./"+OutPutFile+"_"+fasterLab+"_resultOf_RoadLab_"+PeriodIDStr+".txt");
 			FileOutputStream outfile3 = new FileOutputStream("./"+OutPutFile+"_"+fasterLab+"_resultOf_BreakLab_"+PeriodIDStr+".txt");
-			String alltxt = "./data/flow0901.txt;./data/flow0902.txt;./data/flow0903.txt;./data/flow0904.txt;./data/flow0905.txt;./data/flow0907.txt;";
+			String alltxt = "./data/flow0901.txt;./data/flow0902.txt;./data/flow0903.txt;./data/flow0904.txt;./data/flow0905.txt;./data/flow0906.txt;./data/flow0907.txt;";
+			//String alltxt = "./data/flow0901.txt;./data/flow0902.txt;./data/flow0903.txt;./data/flow0904.txt;./data/flow0905.txt;./data/flow0907.txt;";
 			//String alltxt = "./data/flow0901.txt;./data/flow0903.txt;./data/flow0905.txt;./data/flow0907.txt;";
 			//String alltxt = "./data/flow0901.txt;";
 			//String alltxt = "./data/flow0908_guess.txt;";
@@ -787,7 +804,6 @@ public class MechanicII_Dynamic_extend {
 			//String alltxt = "./data/flow0901.txt;./data/flow0903.txt;./data/flow0905.txt;./data/flow0907.txt;";
 			//String alltxt = "./data/flow0901.txt;";
 			String[] txts = alltxt.trim().split(";");
-			//debuglab = true;///for print 
 			String lastStr1 = "";
 			String lastStr2 = "";
 			String lastStr3 = "";

@@ -20,7 +20,7 @@ public final class FlowData
 	
 	public static double[] turn_rate = new double[]{0.1,0.1,0.8};///{L,R,S}
 	public static int[]  through_rate = new int[]{2,2,16};///It's True
-	//public static int[]  through_rate = new int[]{4,4,20};///It's Wrong
+	//public static int[]  through_rate = new int[]{4,4,16};///It's Wrong
 	public double trueTurnRate[][];///(roadID,3): + Intersection and T Intersection have different rate;
 	public boolean hasTrafficLight[][];///(roadID,3) {0:L,1:R,2:S} hasTrafficLight[roadid][L/S/R]=true => there is an exit
 	public int tmp_trafficlight[][];///(roadID,3) {0:L,1:R,2:S}
