@@ -32,7 +32,8 @@ public class gui extends JFrame  {
 	private static Color KOCO_Lightred = new Color(250,89,20);
 	
 	///KOCO flowdata:
-	private static FlowData flowdata = null;
+	//private static FlowData flowdata = null;
+	private static FlowdataII flowdata = null;
 	private static gui self = null;
 	
 	private static BufferedReader br = null;
@@ -98,7 +99,8 @@ public class gui extends JFrame  {
 		attachListeners();		
         setVisible(true);
         ///KOCO flowdata:
-        flowdata = new FlowData();
+        //flowdata = new FlowData();
+        flowdata = new FlowdataII();
         flowdata.initJudgeFromTxt( JudgeTxt);
         //flowdata.initJudgeFromFreedomData(6);
         
@@ -360,6 +362,11 @@ public class gui extends JFrame  {
 		    			g.setColor( Color.blue );
 		    			g.drawString(new String(""+sumFlow), posx-6, posy+16);
 		    		}
+		    		
+		    		//Draw through_rate:
+		    		//g.setColor( Color.blue );
+		    		//g.drawString(new String("("+flowdata.through_rate[i][0]+","+flowdata.through_rate[i][1]+","+flowdata.through_rate[i][2]+")"),posx-6, posy+26);
+
 		        	
 		        	///SUM ;
 		        	/*
@@ -471,10 +478,10 @@ public class gui extends JFrame  {
 	    		}
 	    		
 	    		//Draw through_rate:
-	    		g.setColor( Color.blue );
-	    		g.drawString(new String("through_L: "+flowdata.through_rate[0]),Penaltyx-dPx,Penaltyy+170 + (16)*12);
-	    		g.drawString(new String("through_R: "+flowdata.through_rate[1]),Penaltyx-dPx,Penaltyy+170 + (17)*12);
-	    		g.drawString(new String("through_S:" +flowdata.through_rate[2]),Penaltyx-dPx,Penaltyy+170 + (18)*12);
+	    		//g.setColor( Color.blue );
+	    		//g.drawString(new String("through_L: "+flowdata.through_rate[0]),Penaltyx-dPx,Penaltyy+170 + (16)*12);
+	    		//g.drawString(new String("through_R: "+flowdata.through_rate[1]),Penaltyx-dPx,Penaltyy+170 + (17)*12);
+	    		//g.drawString(new String("through_S:" +flowdata.through_rate[2]),Penaltyx-dPx,Penaltyy+170 + (18)*12);
 	    		
 	    		///tmp_tim
 	    		g.setColor( KOCO_Green );

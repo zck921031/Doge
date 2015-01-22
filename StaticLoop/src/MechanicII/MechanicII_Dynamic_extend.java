@@ -17,8 +17,9 @@ import java.io.File;
 import java.io.FileOutputStream;  
 
 public class MechanicII_Dynamic_extend {
-	static int partNum = 3;//120T分为几段
-	static FlowData flowdata = null;
+	static int partNum = 2;//120T分为几段
+	//static FlowData flowdata = null;
+	static FlowdataII flowdata = null;
 	static MechanicII_Model lightmodel = null;/// haven't init
 	static boolean debuglab = false;
 	static boolean learninglab = false;
@@ -27,7 +28,8 @@ public class MechanicII_Dynamic_extend {
 	///用来debug的，即从txt读入数据，用flowdata模拟，再模拟器离线跑！
 	{
 		int count = 0;
-		flowdata = new FlowData();
+		//flowdata = new FlowData();
+		flowdata = new FlowdataII();
 		flowdata.initJudgeFromTxt(txtfile);
 		//flowdata.initJudgeFromFreedomData(8);
 		DebugPrint(""+flowdata.initOK);
@@ -201,7 +203,8 @@ public class MechanicII_Dynamic_extend {
 		//String[] PeriodTable = Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof6.trim().split("@");
 		//String[] PeriodTable = Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof6_0908.trim().split("@");
 		//String[] PeriodTable = Constants.NewRuleTrafficRule_AddBreakLab_part2.trim().split("@");
-		String[] PeriodTable = Constants.NewRuleTrafficRule_AddBreakLab_part3.trim().split("@");
+		//String[] PeriodTable = Constants.NewRuleTrafficRule_AddBreakLab_part3.trim().split("@");
+		String[] PeriodTable = Constants.NewRuleTrafficRule_part2_input7.trim().split("@");
 				
 		int lablen = PeriodTable.length;
 		//DebugPrint(""+lablen);
@@ -239,7 +242,8 @@ public class MechanicII_Dynamic_extend {
 		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof6;
 		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof6_0908;
 		//String isExTRoadLab_Rule = Constants.isExTRoadLab_AddBreakLab_part2;
-		String isExTRoadLab_Rule = Constants.isExTRoadLab_AddBreakLab_part3;
+		//String isExTRoadLab_Rule = Constants.isExTRoadLab_AddBreakLab_part3;
+		String isExTRoadLab_Rule = Constants.isExTRoadLab_part2_input7;
 		
 		if(isExTRoadLab_Rule.equals("")==false) 
 		{
@@ -280,7 +284,8 @@ public class MechanicII_Dynamic_extend {
 		/////////////////////////////
 		//String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_Rule;
 		//String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_part2;
-		String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_part3;
+		//String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_part3;
+		String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_part2_input7;
 		
 		if(isBreakingRoadLab_Rule.equals("")==false)
 		{
@@ -660,7 +665,8 @@ public class MechanicII_Dynamic_extend {
 	static String[] windhunterLearningII_static(String[] filetxtset,int periodID,boolean usefaster)//添加是否选用faster方法更新训练
 	{
 		///unfinished ! should create a new model first!
-		flowdata = new FlowData();
+		//flowdata = new FlowData();
+		flowdata = new FlowdataII();
 		flowdata.initJudgeFromMultiTxts(filetxtset);
 		lightmodel = new MechanicII_Model();
 		lightmodel.initTableFrom();
@@ -772,7 +778,8 @@ public class MechanicII_Dynamic_extend {
 			//String alltxt = "./data/flow0908_guess.txt;";
 			String[] txts = alltxt.trim().split(";");
 			debuglab = true;///for print 
-			flowdata = new FlowData();
+			//flowdata = new FlowData();
+			flowdata = new FlowdataII();
 			int periodID = flowdata.toInt(PeriodIDStr);
 			String[] lastStr = null;
 			
@@ -847,7 +854,8 @@ public class MechanicII_Dynamic_extend {
 			return;
 		}
 		int count = 0;
-		flowdata = new FlowData();
+		//flowdata = new FlowData();
+		flowdata = new FlowdataII();
 		flowdata.initTrafficLogic();
 		
 		lightmodel = new MechanicII_Model();
