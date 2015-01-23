@@ -306,7 +306,7 @@ public final class FlowdataII
 		//through_rate:
 		through_level = new int[roadNum];
 		through_rate  = new int[roadNum][3]; 
-		for(int i=0;i<roadNum;i++) through_level[i] = 2;//level new!
+		for(int i=0;i<roadNum;i++) through_level[i] = 0;//level new!
 		for(int id=1;id<roadNum;id++)
 		{
 			if(hasRoadID[id]==false) continue;
