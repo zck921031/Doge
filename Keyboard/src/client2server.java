@@ -2,6 +2,7 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.io.*;
+import java.util.Scanner;
 //import sun.misc.BASE64Encoder; 
 
 public class client2server {
@@ -9,7 +10,7 @@ public class client2server {
 	/**
 	 * 启动前的延时
 	 */
-	int startDelay = 3000;
+	int startDelay = 5000;
 	/**
 	 * 每次按键延时(ms)
 	 */
@@ -119,14 +120,25 @@ public class client2server {
 	}
 	public void clickfile(String fileName){
 		String res = file2base64(fileName);
+		clickString(res);
+	}
+	void command_io(){
+		System.out.println("输入要编码文件的绝对路径");
+		String fileName = "";
+		Scanner cin = new Scanner( System.in );
+		fileName = cin.nextLine();
+		cin.close();
+		String res = file2base64(fileName);
+		System.out.println("编码成功，5s后开始自动输入，马上切换回虚拟机。");
 		clickString(res);		
 	}
 	static public void main(String av[]) throws AWTException
 	{
 		client2server test = new client2server();
+		test.command_io();
 		//test.charset_test();
 		//test.input_file_test();
-		test.encode_decode_test();
+		//test.encode_decode_test();
 	}
 	
 	void charset_test(){
