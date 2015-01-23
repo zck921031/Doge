@@ -1,0 +1,19 @@
+create table count_data as
+select
+    user_id,
+    brand_id,
+    sum(buyn) as buynum,
+    sum(clkn) as clknum
+--add--line1--
+    case when sum(looked)>0 then 1 else 0 end as visited
+from(
+    select
+        user_id,
+        brand_id,
+        case when buy>0 then 1 else 0 end as buyn,
+	clk as clkn
+--add--line2--
+	case when visit_date<=195 then clk+buy+fav+car else 0 end as looked
+        
+    from init_data
+)a
