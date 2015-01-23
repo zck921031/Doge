@@ -1,10 +1,10 @@
 import java.io.File;
 import java.io.FileInputStream;
-
-
 public class decoder {
 	static public void main(String av[]){
-		File file = new File("receive.base64");
+		String fileName = "receive.base64";
+		if ( av.length > 0 ) fileName = av[0];
+		File file = new File(fileName);
 		FileInputStream inputFile;
 		String rev = "";
 		try {
