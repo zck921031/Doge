@@ -307,6 +307,17 @@ public final class FlowdataII
 		through_level = new int[roadNum];
 		through_rate  = new int[roadNum][3]; 
 		for(int i=0;i<roadNum;i++) through_level[i] = 0;//level new!
+		String[] levSet = Constants.EasyRoadLev.trim().split(";");
+		for(String rd : levSet)
+		{
+			String[] ss = rd.trim().split(",");
+			//System.out.println(rd);
+			int from = toInt(ss[1]);
+			int to   = toInt(ss[0]);
+			int lev  = toInt(ss[2]);
+			through_level[roadID[from][to]] = lev;
+			//System.out.println(from+","+to+","+lev+" ::: "+rd);
+		}
 		for(int id=1;id<roadNum;id++)
 		{
 			if(hasRoadID[id]==false) continue;
