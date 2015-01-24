@@ -799,7 +799,7 @@ public class MechanicII_Dynamic_extend {
 	}
 	public static void main(String[] args) throws NumberFormatException, IOException
 	{
-		#添加Allmeanflow，需要确认一个数据拟合的好坏
+		//#添加Allmeanflow，需要确认一个数据拟合的好坏
 		//if(true) {DoSomethingInit();return;}//生成lightmodel需要的东西
 		//if(true) {if(args.length==2) runTrainingModel(args[0],args[1],"false");else runTrainingModel(args[0],args[1],args[2]);return;}//在外部多次运行
 		
