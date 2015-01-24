@@ -86,7 +86,8 @@ public final class FlowdataII
 	            // 一次读入一行，直到读入null为文件结束
 	            while ((context = reader.readLine()) != null) {
 	                // 显示行号
-	                ///System.out.println("line " + line + ": " + context);
+	                //System.out.println("line " + line + ": " + context);
+	            	if(context.equals("")) continue;
 	                line++;
 	                
 	                String [] strs = context.trim().split(",");
@@ -133,6 +134,7 @@ public final class FlowdataII
 	            while ((context = reader.readLine()) != null) {
 	                // 显示行号
 	                ///System.out.println("line " + line + ": " + context);
+	            	if(context.equals("")) continue;
 	                line++;
 	                
 	                String [] strs = context.trim().split(",");

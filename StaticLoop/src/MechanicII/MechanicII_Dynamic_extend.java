@@ -771,11 +771,12 @@ public class MechanicII_Dynamic_extend {
 			FileOutputStream outfile1 = new FileOutputStream("./"+OutPutFile+"_"+fasterLab+"_resultOf_tlModel_"+PeriodIDStr+".txt");
 			FileOutputStream outfile2 = new FileOutputStream("./"+OutPutFile+"_"+fasterLab+"_resultOf_RoadLab_"+PeriodIDStr+".txt");
 			FileOutputStream outfile3 = new FileOutputStream("./"+OutPutFile+"_"+fasterLab+"_resultOf_BreakLab_"+PeriodIDStr+".txt");
-			String alltxt = "./data/flow0901.txt;./data/flow0902.txt;./data/flow0903.txt;./data/flow0904.txt;./data/flow0905.txt;./data/flow0906.txt;./data/flow0907.txt;";
+			//String alltxt = "./data/flow0901.txt;./data/flow0902.txt;./data/flow0903.txt;./data/flow0904.txt;./data/flow0905.txt;./data/flow0906.txt;./data/flow0907.txt;";
 			//String alltxt = "./data/flow0901.txt;./data/flow0902.txt;./data/flow0903.txt;./data/flow0904.txt;./data/flow0905.txt;./data/flow0907.txt;";
 			//String alltxt = "./data/flow0901.txt;./data/flow0903.txt;./data/flow0905.txt;./data/flow0907.txt;";
 			//String alltxt = "./data/flow0901.txt;";
 			//String alltxt = "./data/flow0908_guess.txt;";
+			String alltxt = "./data/Allmeanflow.txt;";
 			String[] txts = alltxt.trim().split(";");
 			debuglab = true;///for print 
 			//flowdata = new FlowData();
@@ -798,7 +799,7 @@ public class MechanicII_Dynamic_extend {
 	}
 	public static void main(String[] args) throws NumberFormatException, IOException
 	{
-		
+		#添加Allmeanflow，需要确认一个数据拟合的好坏
 		//if(true) {DoSomethingInit();return;}//生成lightmodel需要的东西
 		//if(true) {if(args.length==2) runTrainingModel(args[0],args[1],"false");else runTrainingModel(args[0],args[1],args[2]);return;}//在外部多次运行
 		
@@ -807,9 +808,9 @@ public class MechanicII_Dynamic_extend {
 		if(learninglab)
 		{
 			debuglab = true;
-			String alltxt = "./data/flow0901.txt;./data/flow0902.txt;./data/flow0903.txt;./data/flow0904.txt;./data/flow0905.txt;./data/flow0907.txt;";
+			//String alltxt = "./data/flow0901.txt;./data/flow0902.txt;./data/flow0903.txt;./data/flow0904.txt;./data/flow0905.txt;./data/flow0907.txt;";
 			//String alltxt = "./data/flow0901.txt;./data/flow0903.txt;./data/flow0905.txt;./data/flow0907.txt;";
-			//String alltxt = "./data/flow0901.txt;";
+			String alltxt = "./data/Allmeanflow.txt;";
 			String[] txts = alltxt.trim().split(";");
 			String lastStr1 = "";
 			String lastStr2 = "";

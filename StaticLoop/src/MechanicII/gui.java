@@ -164,7 +164,7 @@ public class gui extends JFrame  {
 		infoPanel.add(jb5);
 		
 		String[] chooseSet = {"./data/flow0901.txt","./data/flow0902.txt","./data/flow0903.txt","./data/flow0904.txt","./data/flow0905.txt",
-				"./data/flow0906.txt","./data/flow0907.txt","./data/meanflow.txt","./data/flow0908_guess.txt"};
+				"./data/flow0906.txt","./data/flow0907.txt","./data/meanflow.txt","./data/flow0908_guess.txt","./data/Allmeanflow.txt"};
 		jcb1 = new JComboBox(chooseSet);
 		jcb1.setBounds(0,0,200,30);
 		infoPanel.add(jcb1);
