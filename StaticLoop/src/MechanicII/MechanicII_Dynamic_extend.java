@@ -197,14 +197,11 @@ public class MechanicII_Dynamic_extend {
 		lightRoadA_static = new int[flowdata.tlNum];
 		for(int i=1;i<flowdata.tlNum;i++) lightRoadA_static[i] = flowdata.lightLinkRoad[i][0];
 		
-		//String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_lev2break_fasterTrain_AddisExTRoad_AddLeftBreaking.trim().split("@");
-		//String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_TrainFrom0908_partof2.trim().split("@");
-		//String[] PeriodTable =  Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof2.trim().split("@");
-		//String[] PeriodTable = Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof6.trim().split("@");
-		//String[] PeriodTable = Constants.NewRuleBreakTrafficRule_TrainFromAllflow_partof6_0908.trim().split("@");
-		//String[] PeriodTable = Constants.NewRuleTrafficRule_AddBreakLab_part2.trim().split("@");
-		//String[] PeriodTable = Constants.NewRuleTrafficRule_AddBreakLab_part3.trim().split("@");
-		String[] PeriodTable = Constants.NewRuleTrafficRule_part2_input7.trim().split("@");
+		//***********************
+		//***********************
+		//***********************
+		//String[] PeriodTable = Constants.NewRuleTrafficRule_part2_input7.trim().split("@");
+		String[] PeriodTable = Constants.NewRuleTrafficRule_part2_input7_r2.trim().split("@");
 				
 		int lablen = PeriodTable.length;
 		//DebugPrint(""+lablen);
@@ -236,14 +233,9 @@ public class MechanicII_Dynamic_extend {
 		isExTRoadLab_static = new boolean[flowdata.roadNum][partNum*14];
 		for(int i=0;i<flowdata.roadNum;i++) for(int j=0;j<partNum*14;j++) if(flowdata.hasRoadID[i]) isExTRoadLab_static[i][j] = (ScoreRoad[i]>25?false:true);
 		
-		//String isExTRoadLab_Rule = Constants.isExTRoadLab_Rule_AddLeftBreaking;
-		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFrom_0908_partof2;
-		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof2;
-		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof6;
-		//String isExTRoadLab_Rule = Constants.isExTRoadLab_TrainFromAllflow_partof6_0908;
-		//String isExTRoadLab_Rule = Constants.isExTRoadLab_AddBreakLab_part2;
-		//String isExTRoadLab_Rule = Constants.isExTRoadLab_AddBreakLab_part3;
-		String isExTRoadLab_Rule = Constants.isExTRoadLab_part2_input7;
+
+		//String isExTRoadLab_Rule = Constants.isExTRoadLab_part2_input7;
+		String isExTRoadLab_Rule = Constants.isExTRoadLab_part2_input7_r2;
 		
 		if(isExTRoadLab_Rule.equals("")==false) 
 		{
@@ -282,10 +274,8 @@ public class MechanicII_Dynamic_extend {
 			 if(ScoreRoad[i]==46) isBreakingRoadLab_static[i][j] = 2;
 		}
 		/////////////////////////////
-		//String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_Rule;
-		//String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_part2;
-		//String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_part3;
-		String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_part2_input7;
+		//String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_part2_input7;
+		String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_part2_input7_r2;
 		
 		if(isBreakingRoadLab_Rule.equals("")==false)
 		{
@@ -776,7 +766,9 @@ public class MechanicII_Dynamic_extend {
 			//String alltxt = "./data/flow0901.txt;./data/flow0903.txt;./data/flow0905.txt;./data/flow0907.txt;";
 			//String alltxt = "./data/flow0901.txt;";
 			//String alltxt = "./data/flow0908_guess.txt;";
-			String alltxt = "./data/Allmeanflow.txt;";
+			//String alltxt = "./data/Allmeanflow.txt;";
+			String alltxt = "./data/round2_0901.txt;./data/round2_0902.txt;./data/round2_0903.txt;./data/round2_0904.txt;./data/round2_0905.txt;./data/round2_0906.txt;./data/round2_0907.txt;";
+
 			String[] txts = alltxt.trim().split(";");
 			debuglab = true;///for print 
 			//flowdata = new FlowData();
