@@ -85,10 +85,19 @@ public class client2server {
 			shift = 1;
 		}
 		if(keyid==-1) return;
-		if(shift==1)  robot.keyPress(KeyEvent.VK_SHIFT); 
-    	robot.keyPress(keyid); 
+		if(shift==1)  
+		{
+			robot.keyPress(KeyEvent.VK_SHIFT); 
+			robot.delay(3);
+		}
+		Invtime = 5;
+		robot.keyPress(keyid); 
         robot.keyRelease(keyid); 
-        if(shift==1)  robot.keyRelease(KeyEvent.VK_SHIFT); 
+        if(shift==1)  
+        {
+        	robot.delay(3);
+        	robot.keyRelease(KeyEvent.VK_SHIFT); 
+        }
         robot.delay(Invtime);
 	}
 	String file2base64(String fileName)

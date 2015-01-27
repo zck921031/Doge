@@ -202,6 +202,7 @@ public class MechanicII_Dynamic_extend {
 		//***********************
 		//String[] PeriodTable = Constants.NewRuleTrafficRule_part2_input7.trim().split("@");
 		String[] PeriodTable = Constants.NewRuleTrafficRule_part2_input7_r2.trim().split("@");
+		//String[] PeriodTable = Constants.NewRuleTrafficRule_part2_inputAllmean2_r2.trim().split("@");
 				
 		int lablen = PeriodTable.length;
 		//DebugPrint(""+lablen);
@@ -236,6 +237,7 @@ public class MechanicII_Dynamic_extend {
 
 		//String isExTRoadLab_Rule = Constants.isExTRoadLab_part2_input7;
 		String isExTRoadLab_Rule = Constants.isExTRoadLab_part2_input7_r2;
+		//String isExTRoadLab_Rule = Constants.isExTRoadLab_part2_inputAllmean2_r2;
 		
 		if(isExTRoadLab_Rule.equals("")==false) 
 		{
@@ -276,6 +278,7 @@ public class MechanicII_Dynamic_extend {
 		/////////////////////////////
 		//String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_part2_input7;
 		String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_part2_input7_r2;
+		//String isBreakingRoadLab_Rule = Constants.isBreakingRoadLab_part2_inputAllmean2_r2;
 		
 		if(isBreakingRoadLab_Rule.equals("")==false)
 		{
@@ -766,8 +769,8 @@ public class MechanicII_Dynamic_extend {
 			//String alltxt = "./data/flow0901.txt;./data/flow0903.txt;./data/flow0905.txt;./data/flow0907.txt;";
 			//String alltxt = "./data/flow0901.txt;";
 			//String alltxt = "./data/flow0908_guess.txt;";
-			//String alltxt = "./data/Allmeanflow.txt;";
-			String alltxt = "./data/round2_0901.txt;./data/round2_0902.txt;./data/round2_0903.txt;./data/round2_0904.txt;./data/round2_0905.txt;./data/round2_0906.txt;./data/round2_0907.txt;";
+			String alltxt = "./data/Allmeanflow_2.txt;";
+			//String alltxt = "./data/round2_0901.txt;./data/round2_0902.txt;./data/round2_0903.txt;./data/round2_0904.txt;./data/round2_0905.txt;./data/round2_0906.txt;./data/round2_0907.txt;";
 
 			String[] txts = alltxt.trim().split(";");
 			debuglab = true;///for print 
