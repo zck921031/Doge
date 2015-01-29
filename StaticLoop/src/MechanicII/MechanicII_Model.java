@@ -13,6 +13,7 @@ public class MechanicII_Model {
 	public static int[][][] trafficLightTableModel     = null;//(modelID,periodID,ALAS..DS)=>green or red
 	public static int[]     trafficLightTablePeriod    = null;//(modelID) => Period Numbers
 	public static int[][]   trafficLightTablefirstGreen= null;//(modelID,ALAS..DS),which period is the first Green 
+	public static int[][][]   trafficLightTableGreenCnt  = null;//(modelID,ALAS..DS),which period is the first Green
 	
 	/*
 	 * ModelSetStr = "MODEL0;MODEL1;...;MODELi;...;" => MODELx = "modelID,modelTim,T0,T1,T2,..Tj;" => Tj = "00110011" Bits(AL,AS,BL,BS,CL,CS,DL,DS)
@@ -153,6 +154,7 @@ public class MechanicII_Model {
 		trafficLightTableModel  	= new int[ModelNum][10][8];
 		trafficLightTablePeriod 	= new int[ModelNum];
 		trafficLightTablefirstGreen = new int[ModelNum][8];
+		trafficLightTableGreenCnt   = new int[ModelNum][10][8];
 		modelStr = new String[ModelNum];
 		///System.out.println(ModelNum);
 		for(String st : strs)
@@ -168,11 +170,13 @@ public class MechanicII_Model {
 				String tmpS = ss[i+2];
 				for(int j=0;j<8;j++)
 				{
-					if(tmpS.charAt(j)=='0') trafficLightTableModel[modelID][i][j] = 0;
+					if(tmpS.charAt(j)=='0') trafficLightTableGreenCnt[modelID][i][j] = trafficLightTableModel[modelID][i][j] = 0;
 					else {
 						trafficLightTableModel[modelID][i][j] = 1;
 						trafficLightTablefirstGreen[modelID][j] = Math.min(i, trafficLightTablefirstGreen[modelID][j]);
+						trafficLightTableGreenCnt[modelID][i][j] = 1;
 					}
+					if(i>0) trafficLightTableGreenCnt[modelID][i][j]+=trafficLightTableGreenCnt[modelID][i-1][j];
 				}
 			}
 			

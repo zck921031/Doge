@@ -19,7 +19,8 @@ public class gui extends JFrame  {
 	static String JudgeTxt = "./data/flow0901.txt";
 	//static String Running_AI = "java -classpath ./bin   MechanicII/Mechanic";
 	//static String Running_AI = "java -classpath ./bin  MechanicII/MechanicII_Dynamic";
-	static String Running_AI = "java -classpath ./bin  MechanicII/MechanicII_Dynamic_extend";
+	//static String Running_AI = "java -classpath ./bin  MechanicII/MechanicII_Dynamic_extend";
+	static String Running_AI = "java -classpath ./bin  MechanicII/MechanicII_Dynamic_extendII";
 	
 	//static String Running_AI = "java -classpath ./bin/ its.Main";
 	
