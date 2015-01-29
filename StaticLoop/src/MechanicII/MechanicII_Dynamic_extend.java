@@ -786,6 +786,9 @@ public class MechanicII_Dynamic_extend {
 			outfile1.write((lastStr[0]).getBytes());
 			outfile2.write((lastStr[1]).getBytes());
 			outfile3.write((lastStr[2]).getBytes());
+			outfile1.close();
+			outfile2.close();
+			outfile3.close();
 			return;
 		}
 		catch (Exception e) {   
