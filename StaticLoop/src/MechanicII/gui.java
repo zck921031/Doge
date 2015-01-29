@@ -94,7 +94,7 @@ public class gui extends JFrame  {
 	
 	gui()
 	{
-		process_init();
+		//process_init();
 		init();
 		attachListeners();		
         setVisible(true);
@@ -533,7 +533,7 @@ public class gui extends JFrame  {
     	public static int count_tick = 0;
 		private static final long serialVersionUID = -8603262894746675457L;
         public void actionPerformed(ActionEvent e) {
-        	//process_init();
+        	if (0 == count_tick)	process_init();
         	System.out.println("Button down");
             System.out.flush();
             int runtim=1;
